@@ -47,13 +47,17 @@ h3{font-size:15px;font-weight:600}
 /* Cards lift in on load, staggered down the page. Anything that animates is
    also given its final state up front, so a reduced-motion viewer or a failed
    animation still sees a complete board rather than a blank one. */
-@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 @keyframes grow{from{width:0}}
 @keyframes climb{from{height:0}}
-.anim{animation:rise .55s cubic-bezier(.2,.7,.3,1) backwards}
-.d1{animation-delay:.05s} .d2{animation-delay:.12s} .d3{animation-delay:.19s}
-.d4{animation-delay:.26s} .d5{animation-delay:.33s} .d6{animation-delay:.40s}
-.d7{animation-delay:.47s} .d8{animation-delay:.54s}
+/* Entrance kept SHORT. It used to run .55s with delays stepping out to .54s,
+   so the lower half of the board sat invisible for over a second on load and
+   read as a broken page rather than an animating one. Now the whole sequence
+   is done inside a third of a second. */
+.anim{animation:rise .28s cubic-bezier(.2,.7,.3,1) backwards}
+.d1{animation-delay:.02s} .d2{animation-delay:.04s} .d3{animation-delay:.06s}
+.d4{animation-delay:.08s} .d5{animation-delay:.10s} .d6{animation-delay:.12s}
+.d7{animation-delay:.14s} .d8{animation-delay:.16s}
 
 .masthead{display:flex;flex-wrap:wrap;gap:22px;align-items:flex-end;
   justify-content:space-between;padding-bottom:24px;border-bottom:1px solid var(--line)}
@@ -425,7 +429,7 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
       <div class="s">Weekly scoreboard</div>
     </div>
     <div class="stamp">
-      Refreshed <b>Fri 28 Aug 2026, 9:10pm</b><br>
+      Refreshed <b>Fri 28 Aug 2026, 9:16pm</b><br>
       SolarQuotes live pages &middot; GoHighLevel read-only<br>
       Latest review 2026-08-27 &middot; rolling 7-day CRM window
     </div>
