@@ -191,10 +191,13 @@ svg.ns-shield{width:68px;flex:none}
 @supports (offset-path: path("M0,0 L1,1")){
   #hiker{transform:none;offset-path:path(var(--trail));offset-rotate:0deg;
     offset-distance:var(--prog);
-    animation:walk 2.6s cubic-bezier(.35,.75,.4,1) .35s backwards}
+    animation:walk 2.6s cubic-bezier(.35,.75,.4,1) .35s both}
   .climb .spark,.climb .sparkhalo{offset-path:path(var(--trail));offset-rotate:0deg}
 }
-@keyframes walk{from{offset-distance:0%}}
+/* Both ends stated. An implicit "to" has to resolve the element's own
+   specified value, and that value is a custom property - engines do not
+   reliably interpolate to it, which left him parked at the start. */
+@keyframes walk{from{offset-distance:0%} to{offset-distance:var(--prog)}}
 @keyframes sparkrun{
   0%  {offset-distance:0%;              opacity:0}
   12% {                                 opacity:1}
@@ -468,7 +471,7 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
       <div class="s">Weekly scoreboard</div>
     </div>
     <div class="stamp">
-      Refreshed <b>Fri 28 Aug 2026, 9:34pm</b><br>
+      Refreshed <b>Fri 28 Aug 2026, 9:39pm</b><br>
       SolarQuotes live pages &middot; GoHighLevel read-only<br>
       Latest review 2026-08-27 &middot; rolling 7-day CRM window
     </div>
