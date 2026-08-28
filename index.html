@@ -238,28 +238,44 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
    floating away from the words and the emoji stranded at the end of a line.
    Each card carries its own green cap, a big emoji as the anchor, and the
    text set in the display face. Stacks on narrow screens. */
-.focusgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.fcard{position:relative;overflow:hidden;border:1px solid var(--line);
-  border-radius:var(--r-card);padding:30px 24px 28px;display:flex;
-  flex-direction:column;gap:13px;min-height:190px;
-  background:linear-gradient(180deg,rgba(219,225,32,.055),rgba(219,225,32,0) 62%)}
-.fcard::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:var(--green)}
+.focusgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.fcard{position:relative;overflow:hidden;border:1px solid rgba(219,225,32,.35);
+  border-radius:var(--r-card);padding:30px 26px 30px;display:flex;
+  flex-direction:column;gap:16px;min-height:230px;
+  background:
+    radial-gradient(120% 90% at 0% 0%, rgba(219,225,32,.16), rgba(219,225,32,0) 58%),
+    linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,0) 55%)}
+/* Full-width cap rather than a hairline: at a glance the three read as one
+   set, and the green is the brand's only accent so it does the work. */
+.fcard::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:var(--green)}
+/* The numeral is scenery, not information - the order is obvious from the
+   layout. Ghosted large in the corner so the card has depth without a second
+   thing competing with the words. */
+.fcard::after{content:attr(data-n);position:absolute;right:14px;bottom:-18px;
+  font-family:var(--display);font-weight:700;font-size:96px;line-height:1;
+  color:var(--green);opacity:.09;pointer-events:none}
 .fcard .fn{font-family:var(--mono);font-size:11px;font-weight:700;
-  letter-spacing:.18em;color:var(--green)}
-.fcard .fe{font-size:36px;line-height:1;filter:saturate(1.05)}
-.fcard .ft{font-family:var(--display);font-weight:600;letter-spacing:-.01em;
-  font-size:clamp(17px,1.45vw,20px);line-height:1.32;color:var(--ink);margin-top:auto}
-@media(max-width:900px){.focusgrid{grid-template-columns:1fr;gap:12px}
-  .fcard{min-height:0;padding:22px 20px 24px;flex-direction:row;align-items:center;gap:16px}
-  .fcard .fe{font-size:30px}
-  .fcard .ft{margin-top:0}
-  .fcard .fn{position:absolute;top:14px;right:18px}}
+  letter-spacing:.2em;color:var(--green);text-transform:uppercase}
+.fcard .fe{font-size:46px;line-height:1}
+.fcard .ft{position:relative;font-family:var(--display);font-weight:600;
+  letter-spacing:-.015em;font-size:clamp(19px,1.7vw,23px);line-height:1.28;
+  color:var(--ink);margin-top:auto}
+@media(min-width:901px){
+  .fcard{transition:border-color .2s ease, transform .2s ease}
+  .fcard:hover{border-color:var(--green);transform:translateY(-2px)}}
+@media(max-width:900px){
+  .focusgrid{grid-template-columns:1fr;gap:12px}
+  .fcard{min-height:0;padding:22px 20px 24px;flex-direction:row;align-items:center;gap:18px}
+  .fcard .fe{font-size:36px;flex:0 0 auto}
+  .fcard .ft{margin-top:0;font-size:19px}
+  .fcard .fn{position:absolute;top:12px;right:16px}
+  .fcard::after{font-size:64px;bottom:-14px;right:10px}}
 
 /* WHERE WE SIT NATIONALLY. Was four flat tiles and a bare table, which
    buried the only number that matters. The position is the story: a hero
    numeral, then the ten with our row lit and everyone else muted, so the
    eye lands on us without reading a single word. */
-.natwrap{display:grid;grid-template-columns:minmax(240px,.85fr) 1.6fr;gap:16px;align-items:stretch}
+.natwrap{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.6fr);gap:16px;align-items:stretch}
 .nathero{position:relative;overflow:hidden;border:1px solid var(--green);
   border-radius:var(--r-card);padding:28px 26px 26px;display:flex;flex-direction:column;
   background:linear-gradient(160deg,rgba(219,225,32,.10),rgba(219,225,32,0) 70%)}
@@ -269,11 +285,11 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
 .natnote{margin-top:auto;padding-top:16px;font-family:var(--display);font-weight:600;
   font-size:17px;line-height:1.3;color:var(--ink)}
 .natlist{border:1px solid var(--line);border-radius:var(--r-card);padding:8px 10px}
-.natrow{display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:12px;
+.natrow{display:grid;grid-template-columns:34px minmax(0,1fr) auto;align-items:center;gap:12px;
   padding:11px 12px;border-bottom:1px solid var(--line-soft);border-left:2px solid transparent}
 .natrow:last-child{border-bottom:0}
 .natrow .np{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--ink-3)}
-.natrow .nn{color:var(--ink-2);font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.natrow .nn{color:var(--ink-2);font-size:14px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .natrow .na{font-family:var(--mono);font-size:13px;color:var(--ink-3)}
 .natrow.me{border-left-color:var(--green);background:rgba(219,225,32,.07);border-radius:4px}
 .natrow.me .np{color:var(--green)}
@@ -406,7 +422,7 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
       <div class="s">Weekly scoreboard</div>
     </div>
     <div class="stamp">
-      Refreshed <b>Fri 28 Aug 2026, 8:13pm</b><br>
+      Refreshed <b>Fri 28 Aug 2026, 8:37pm</b><br>
       SolarQuotes live pages &middot; GoHighLevel read-only<br>
       Latest review 2026-08-27 &middot; rolling 7-day CRM window
     </div>
@@ -574,7 +590,7 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
         </g>
 
         <!-- the team, climbing -->
-        <g id="hiker">
+        <g id="hiker" transform="translate(218.2,313.4)">
           <g transform="translate(0,-2) scale(1.6)">
             <ellipse cx="0" cy="1" rx="9" ry="3" fill="#000000" opacity=".45"/>
             <line x1="6" y1="-1" x2="9" y2="-16" stroke="#8a7a55" stroke-width="1.6" stroke-linecap="round"/>
@@ -587,10 +603,6 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
             <path d="M-4,-24.5 h9" stroke="#2f3d52" stroke-width="1.8" stroke-linecap="round"/>
             <path d="M-2.4,-25.6 a3,3 0 0 1 5.6,0 Z" fill="#2f3d52"/>
           </g>
-          <animateMotion id="walk" dur="2.8s" begin="0.7s" fill="freeze" calcMode="linear"
-                         keyPoints="0;0.1650" keyTimes="0;1">
-            <mpath href="#trail" xlink:href="#trail"/>
-          </animateMotion>
         </g>
 
         <text class="mlabel base" x="118" y="394">BASE CAMP</text>
@@ -789,7 +801,7 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
     </div>
 
   </section>
-<section class="band"><div class="band-head"><span class="eyebrow">04 &nbsp;The week ahead</span><h2>Top three things for the week</h2><p>Monday 31 August.</p></div><div class="focusgrid"><div class="fcard"><span class="fn">01</span><span class="fe">🎓</span><span class="ft">Congrats to Blakey for passing his solar and battery courses</span></div><div class="fcard"><span class="fn">02</span><span class="fe">🏔️</span><span class="ft">Creating an environment where success is inevitable</span></div><div class="fcard"><span class="fn">03</span><span class="fe">💬</span><span class="ft">Communication is key</span></div></div></section>
+<section class="band"><div class="band-head"><span class="eyebrow">04 &nbsp;The week ahead</span><h2>Top three things for the week</h2><p>Monday 31 August.</p></div><div class="focusgrid"><div class="fcard" data-n="01"><span class="fn">01</span><span class="fe">🎓</span><span class="ft">Congrats to Blakey for passing his solar and battery courses</span></div><div class="fcard" data-n="02"><span class="fn">02</span><span class="fe">🏔️</span><span class="ft">Creating an environment where success is inevitable</span></div><div class="fcard" data-n="03"><span class="fn">03</span><span class="fe">💬</span><span class="ft">Communication is key</span></div></div></section>
   <div class="foot">
     Built from public SolarQuotes pages and a read-only GoHighLevel connection.
     Reviewer names shown are the first names already published on our SolarQuotes review page.<br>
