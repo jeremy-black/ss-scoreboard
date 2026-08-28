@@ -11,7 +11,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Summit + Shore Energy">
 <meta property="og:title" content="Road to Legendary — Summit + Shore weekly scoreboard">
-<meta property="og:description" content="33 of 200 SolarQuotes reviews. 4.0 a week, 167 to go. Currently #- in the ACT.">
+<meta property="og:description" content="33 of 200 SolarQuotes reviews. 4.0 a week, 167 to go. Currently #2 in the ACT.">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Road to Legendary — Summit + Shore weekly scoreboard">
 <meta name="twitter:description" content="33 of 200 SolarQuotes reviews. 4.0 a week, 167 to go.">
@@ -231,19 +231,56 @@ td{padding:13px 0 13px 9px;border-bottom:1px solid var(--line-soft);text-align:r
 td:first-child{text-align:left;padding-left:0;font-family:var(--body);font-size:13.5px;
   white-space:normal;line-height:1.35;min-width:112px}
 tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
-/* The one hand-written thing on the board, so it is given the weight of a
-   headline rather than a footnote: green-bordered card, oversized numerals,
-   text a good step larger than body copy. It is what Kris talks to on the
-   Monday call. */
-.focuscard{border:1px solid var(--green);border-radius:var(--r-card);padding:26px 30px}
-.focus{margin:0;padding:0 0 0 52px;counter-reset:f}
-.focus li{list-style:none;position:relative;padding:18px 0 18px 4px;
-  font-size:clamp(18px,2.2vw,23px);font-family:var(--display);font-weight:600;
-  letter-spacing:-.01em;line-height:1.35;
-  border-bottom:1px solid var(--line-soft);counter-increment:f}
-.focus li::before{content:counter(f);position:absolute;left:-52px;top:14px;
-  font-family:var(--mono);font-size:26px;color:var(--green);font-weight:700;
-  line-height:1;opacity:.9}
+/* THE WEEK AHEAD. The one hand-written thing on the board, and the thing
+   Kris actually talks to on the Monday call, so it gets the most design
+   attention rather than the least. Three cards, not three table rows: the
+   list version left a very wide box mostly empty, with the numerals
+   floating away from the words and the emoji stranded at the end of a line.
+   Each card carries its own green cap, a big emoji as the anchor, and the
+   text set in the display face. Stacks on narrow screens. */
+.focusgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.fcard{position:relative;overflow:hidden;border:1px solid var(--line);
+  border-radius:var(--r-card);padding:30px 24px 28px;display:flex;
+  flex-direction:column;gap:13px;min-height:190px;
+  background:linear-gradient(180deg,rgba(219,225,32,.055),rgba(219,225,32,0) 62%)}
+.fcard::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:var(--green)}
+.fcard .fn{font-family:var(--mono);font-size:11px;font-weight:700;
+  letter-spacing:.18em;color:var(--green)}
+.fcard .fe{font-size:36px;line-height:1;filter:saturate(1.05)}
+.fcard .ft{font-family:var(--display);font-weight:600;letter-spacing:-.01em;
+  font-size:clamp(17px,1.45vw,20px);line-height:1.32;color:var(--ink);margin-top:auto}
+@media(max-width:900px){.focusgrid{grid-template-columns:1fr;gap:12px}
+  .fcard{min-height:0;padding:22px 20px 24px;flex-direction:row;align-items:center;gap:16px}
+  .fcard .fe{font-size:30px}
+  .fcard .ft{margin-top:0}
+  .fcard .fn{position:absolute;top:14px;right:18px}}
+
+/* WHERE WE SIT NATIONALLY. Was four flat tiles and a bare table, which
+   buried the only number that matters. The position is the story: a hero
+   numeral, then the ten with our row lit and everyone else muted, so the
+   eye lands on us without reading a single word. */
+.natwrap{display:grid;grid-template-columns:minmax(240px,.85fr) 1.6fr;gap:16px;align-items:stretch}
+.nathero{position:relative;overflow:hidden;border:1px solid var(--green);
+  border-radius:var(--r-card);padding:28px 26px 26px;display:flex;flex-direction:column;
+  background:linear-gradient(160deg,rgba(219,225,32,.10),rgba(219,225,32,0) 70%)}
+.natbig{font-family:var(--display);font-weight:700;color:var(--green);
+  font-size:clamp(64px,8vw,104px);line-height:.9;letter-spacing:-.04em;margin:10px 0 2px}
+.natsub{color:var(--ink-2);font-size:14px}
+.natnote{margin-top:auto;padding-top:16px;font-family:var(--display);font-weight:600;
+  font-size:17px;line-height:1.3;color:var(--ink)}
+.natlist{border:1px solid var(--line);border-radius:var(--r-card);padding:8px 10px}
+.natrow{display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:12px;
+  padding:11px 12px;border-bottom:1px solid var(--line-soft);border-left:2px solid transparent}
+.natrow:last-child{border-bottom:0}
+.natrow .np{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--ink-3)}
+.natrow .nn{color:var(--ink-2);font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.natrow .na{font-family:var(--mono);font-size:13px;color:var(--ink-3)}
+.natrow.me{border-left-color:var(--green);background:rgba(219,225,32,.07);border-radius:4px}
+.natrow.me .np{color:var(--green)}
+.natrow.me .nn{color:var(--green);font-weight:700;font-family:var(--display);font-size:16px}
+.natrow.me .na{color:var(--green);font-weight:700}
+@media(max-width:900px){.natwrap{grid-template-columns:1fr}
+  .natbig{font-size:72px}}
 .tier{display:inline-block;padding:3px 7px;border-radius:5px;font-family:var(--mono);white-space:nowrap;
   font-size:9px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
 .t-legendary{background:var(--green);color:#000}
@@ -369,7 +406,7 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
       <div class="s">Weekly scoreboard</div>
     </div>
     <div class="stamp">
-      Refreshed <b>Fri 28 Aug 2026, 6:31pm</b><br>
+      Refreshed <b>Fri 28 Aug 2026, 8:09pm</b><br>
       SolarQuotes live pages &middot; GoHighLevel read-only<br>
       Latest review 2026-08-27 &middot; rolling 7-day CRM window
     </div>
@@ -681,22 +718,22 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
     <div class="grid g4" style="margin-bottom:18px">
       <div class="card tile anim d1">
         <span class="label">Average score</span>
-        <div class="v green">#-</div>
+        <div class="v green">#1</div>
         <div class="sub">In the ACT, last 6 months.<br><span class="chip on">Best in the territory</span></div>
       </div>
       <div class="card tile anim d2">
         <span class="label">Most good reviews</span>
-        <div class="v">#-</div>
+        <div class="v">#2</div>
         <div class="sub">In the ACT, last 6 months. The headline ranking.</div>
       </div>
       <div class="card tile anim d3">
         <span class="label">Most good reviews</span>
-        <div class="v">#-</div>
+        <div class="v">#3</div>
         <div class="sub">In the ACT, last 12 months.</div>
       </div>
       <div class="card tile anim d4">
         <span class="label">Most good reviews</span>
-        <div class="v" style="color:var(--ink-2)">#-</div>
+        <div class="v" style="color:var(--ink-2)">#8</div>
         <div class="sub">In the ACT, all time. Years of history we are still building.</div>
       </div>
     </div>
@@ -704,7 +741,7 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
     <div class="grid split">
       <div class="card anim d5">
         <span class="eyebrow">Reviews collected, last 28 days</span>
-        <div class="bars" style="margin-top:16px"><div class="row me"><div class="nm">Summit&nbsp;+&nbsp;Shore</div><div class="bar us" style="--w:100%"></div><div class="qt">16</div></div><div class="row"><div class="nm">Adapt Energy Pty Ltd</div><div class="bar dim" style="--w:31%"></div><div class="qt">5</div></div><div class="row"><div class="nm">Adelaide SolarSafe</div><div class="bar dim" style="--w:25%"></div><div class="qt">4</div></div></div>
+        <div class="bars" style="margin-top:16px"><div class="row"><div class="nm">RESINC Solar</div><div class="bar dim" style="--w:100%"></div><div class="qt">50</div></div><div class="row"><div class="nm">Lenergy</div><div class="bar dim" style="--w:36%"></div><div class="qt">18</div></div><div class="row me"><div class="nm">Summit&nbsp;+&nbsp;Shore</div><div class="bar us" style="--w:32%"></div><div class="qt">16</div></div><div class="row"><div class="nm">EISS Pty Ltd</div><div class="bar dim" style="--w:22%"></div><div class="qt">11</div></div><div class="row"><div class="nm">Reef Solar and Electrical</div><div class="bar dim" style="--w:20%"></div><div class="qt">10</div></div><div class="row"><div class="nm">Stored Power Pty Ltd</div><div class="bar dim" style="--w:16%"></div><div class="qt">8</div></div><div class="row"><div class="nm">Stag Electrical Solar and Refrigeration</div><div class="bar dim" style="--w:16%"></div><div class="qt">8</div></div><div class="row"><div class="nm">Jet Solar Pty Ltd</div><div class="bar dim" style="--w:14%"></div><div class="qt">7</div></div><div class="row"><div class="nm">EnergyFlo Renewables</div><div class="bar dim" style="--w:10%"></div><div class="qt">5</div></div><div class="row"><div class="nm">Winki Energy</div><div class="bar dim" style="--w:8%"></div><div class="qt">4</div></div><div class="row"><div class="nm">Goulburn Solar</div><div class="bar dim" style="--w:8%"></div><div class="qt">4</div></div><div class="row"><div class="nm">Isolated Electrical Qld</div><div class="bar dim" style="--w:6%"></div><div class="qt">3</div></div><div class="row"><div class="nm">Huglo Solar</div><div class="bar dim" style="--w:6%"></div><div class="qt">3</div></div><div class="row"><div class="nm">Green Line Solar</div><div class="bar dim" style="--w:6%"></div><div class="qt">3</div></div><div class="row"><div class="nm">Solar4Life</div><div class="bar dim" style="--w:4%"></div><div class="qt">2</div></div><div class="row"><div class="nm">Beyond Solar</div><div class="bar dim" style="--w:4%"></div><div class="qt">2</div></div><div class="row"><div class="nm">Sunbuilt Solar</div><div class="bar dim" style="--w:2%"></div><div class="qt">1</div></div><div class="row zero"><div class="nm">Shaw Electrix</div><div class="bar" style="--w:0%"></div><div class="qt">0</div></div><div class="row zero"><div class="nm">ECG Electrical</div><div class="bar" style="--w:0%"></div><div class="qt">0</div></div></div>
         <div class="note good">
           <b>Recent pace is where we already compete.</b> Only one installer in the ACT collected
           more than us over the last 28 days, and several of the biggest names collected none.
@@ -715,7 +752,7 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
         <div class="tscroll">
           <table>
             <thead><tr><th>Installer</th><th>Reviews</th><th>Avg</th><th>Tier</th></tr></thead>
-            <tbody><tr><td>Adapt Energy Pty Ltd</td><td>476</td><td>4.70</td><td><span class="tier t-platinum">Platinum</span></td></tr><tr><td>Adelaide SolarSafe</td><td>136</td><td>4.90</td><td><span class="tier t-gold">Gold</span></td></tr><tr class="me"><td>Summit + Shore</td><td>33</td><td>5.00</td><td><span class="tier t-silver">Silver</span></td></tr></tbody>
+            <tbody><tr><td>RESINC Solar</td><td>3416</td><td>5.00</td><td><span class="tier t-legendary">Legendary</span></td></tr><tr><td>Jet Solar Pty Ltd</td><td>636</td><td>5.00</td><td><span class="tier t-legendary">Legendary</span></td></tr><tr><td>Lenergy</td><td>290</td><td>4.90</td><td><span class="tier t-legendary">Legendary</span></td></tr><tr><td>Beyond Solar</td><td>576</td><td>4.50</td><td><span class="tier t-platinum">Platinum</span></td></tr><tr><td>Stag Electrical Solar and Refrigeration</td><td>409</td><td>4.80</td><td><span class="tier t-platinum">Platinum</span></td></tr><tr><td>EISS Pty Ltd</td><td>383</td><td>5.00</td><td><span class="tier t-platinum">Platinum</span></td></tr><tr><td>ECG Electrical</td><td>339</td><td>4.80</td><td><span class="tier t-platinum">Platinum</span></td></tr><tr><td>Green Line Solar</td><td>195</td><td>5.00</td><td><span class="tier t-platinum">Platinum</span></td></tr><tr><td>Huglo Solar</td><td>156</td><td>4.80</td><td><span class="tier t-platinum">Platinum</span></td></tr><tr><td>Reef Solar and Electrical</td><td>145</td><td>5.00</td><td><span class="tier t-platinum">Platinum</span></td></tr><tr><td>Solar4Life</td><td>154</td><td>4.70</td><td><span class="tier t-gold">Gold</span></td></tr><tr><td>Goulburn Solar</td><td>120</td><td>4.90</td><td><span class="tier t-gold">Gold</span></td></tr><tr><td>EnergyFlo Renewables</td><td>61</td><td>5.00</td><td><span class="tier t-gold">Gold</span></td></tr><tr><td>Isolated Electrical Qld</td><td>55</td><td>5.00</td><td><span class="tier t-gold">Gold</span></td></tr><tr><td>Winki Energy</td><td>80</td><td>5.00</td><td><span class="tier t-silver">Silver</span></td></tr><tr class="me"><td>Summit + Shore</td><td>33</td><td>5.00</td><td><span class="tier t-silver">Silver</span></td></tr></tbody>
           </table>
         </div>
         <div class="note">
@@ -739,7 +776,7 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
     <div class="grid g4" style="margin-bottom:18px">
       <div class="card tile anim d1">
         <span class="label">National position</span>
-        <div class="v green">#-</div>
+        <div class="v green">#10</div>
         <div class="sub">Average score, last 6 months</div>
       </div>
       <div class="card tile anim d2">
@@ -749,7 +786,7 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
       </div>
       <div class="card tile anim d3">
         <span class="label">In the ACT</span>
-        <div class="v green">#-</div>
+        <div class="v green">#1</div>
         <div class="sub">Average score, last 6 months</div>
       </div>
       <div class="card tile anim d4">
@@ -764,7 +801,7 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
       <div class="tscroll">
         <table>
           <thead><tr><th>#</th><th>Installer</th><th>Reviews</th><th>Avg</th></tr></thead>
-          <tbody><tr><td>1</td><td>Adelaide SolarSafe</td><td>136</td><td>4.90</td></tr><tr><td>2</td><td>Adapt Energy Pty Ltd</td><td>476</td><td>4.70</td></tr></tbody>
+          <tbody><div class="natrow"><span class="np">01</span><span class="nn">EISS Pty Ltd</span><span class="na">5.00</span></div><div class="natrow"><span class="np">02</span><span class="nn">Stored Power Pty Ltd</span><span class="na">5.00</span></div><div class="natrow"><span class="np">03</span><span class="nn">Isolated Electrical Qld</span><span class="na">5.00</span></div><div class="natrow"><span class="np">04</span><span class="nn">Green Line Solar</span><span class="na">5.00</span></div><div class="natrow"><span class="np">05</span><span class="nn">Jet Solar Pty Ltd</span><span class="na">5.00</span></div><div class="natrow"><span class="np">06</span><span class="nn">EnergyFlo Renewables</span><span class="na">5.00</span></div><div class="natrow"><span class="np">07</span><span class="nn">RESINC Solar</span><span class="na">5.00</span></div><div class="natrow"><span class="np">08</span><span class="nn">Reef Solar and Electrical</span><span class="na">5.00</span></div><div class="natrow"><span class="np">09</span><span class="nn">Winki Energy</span><span class="na">5.00</span></div><div class="natrow me"><span class="np">10</span><span class="nn">Summit + Shore</span><span class="na">5.00</span></div></tbody>
         </table>
       </div>
       <div class="note good">
@@ -774,7 +811,7 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
     </div>
 
   </section>
-<section class="band"><div class="band-head"><span class="eyebrow">04 &nbsp;The week ahead</span><h2>Top three things for the week</h2><p>Set for the week beginning 2026-08-31.</p></div><div class="focuscard"><ol class="focus"><li>Congrats to Blakey for passing his solar and battery courses 🎓</li><li>Creating an environment where success is inevitable 🏔️</li><li>Communication is key 💬</li></ol></div></section>
+<section class="band"><div class="band-head"><span class="eyebrow">04 &nbsp;The week ahead</span><h2>Top three things for the week</h2><p>Monday 31 August.</p></div><div class="focusgrid"><div class="fcard"><span class="fn">01</span><span class="fe">🎓</span><span class="ft">Congrats to Blakey for passing his solar and battery courses</span></div><div class="fcard"><span class="fn">02</span><span class="fe">🏔️</span><span class="ft">Creating an environment where success is inevitable</span></div><div class="fcard"><span class="fn">03</span><span class="fe">💬</span><span class="ft">Communication is key</span></div></div></section>
   <div class="foot">
     Built from public SolarQuotes pages and a read-only GoHighLevel connection.
     Reviewer names shown are the first names already published on our SolarQuotes review page.<br>
