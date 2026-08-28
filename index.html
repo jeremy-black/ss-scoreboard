@@ -238,38 +238,41 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
    floating away from the words and the emoji stranded at the end of a line.
    Each card carries its own green cap, a big emoji as the anchor, and the
    text set in the display face. Stacks on narrow screens. */
-.focusgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-.fcard{position:relative;overflow:hidden;border:1px solid rgba(219,225,32,.35);
-  border-radius:var(--r-card);padding:30px 26px 30px;display:flex;
-  flex-direction:column;gap:16px;min-height:230px;
-  background:
-    radial-gradient(120% 90% at 0% 0%, rgba(219,225,32,.16), rgba(219,225,32,0) 58%),
-    linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,0) 55%)}
-/* Full-width cap rather than a hairline: at a glance the three read as one
-   set, and the green is the brand's only accent so it does the work. */
-.fcard::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:var(--green)}
-/* The numeral is scenery, not information - the order is obvious from the
-   layout. Ghosted large in the corner so the card has depth without a second
-   thing competing with the words. */
-.fcard::after{content:attr(data-n);position:absolute;right:14px;bottom:-18px;
-  font-family:var(--display);font-weight:700;font-size:96px;line-height:1;
-  color:var(--green);opacity:.09;pointer-events:none}
+/* Solid Summit Green with black type. The brand guide is explicit that text on
+   Summit Green is always black - white on it fails contrast badly - and the
+   guide's own rule that green is scarce is what makes three solid blocks land
+   as the finish of the page rather than decoration. Everything above is dark
+   with green as an accent; this is the one place it takes over. */
+.focusgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.fcard{position:relative;overflow:hidden;border-radius:var(--r-card);
+  background:var(--green);color:#000;padding:26px 24px 26px;
+  display:flex;flex-direction:column;gap:14px;min-height:210px}
+/* The numeral is scenery. Black at low alpha so it reads as a watermark in the
+   green rather than a second number competing with the words. */
+.fcard::after{content:attr(data-n);position:absolute;right:14px;bottom:-22px;
+  font-family:var(--display);font-weight:700;font-size:104px;line-height:1;
+  color:#000;opacity:.11;pointer-events:none}
 .fcard .fn{font-family:var(--mono);font-size:11px;font-weight:700;
-  letter-spacing:.2em;color:var(--green);text-transform:uppercase}
-.fcard .fe{font-size:46px;line-height:1}
-.fcard .ft{position:relative;font-family:var(--display);font-weight:600;
-  letter-spacing:-.015em;font-size:clamp(19px,1.7vw,23px);line-height:1.28;
-  color:var(--ink);margin-top:auto}
+  letter-spacing:.2em;color:#000;opacity:.55}
+/* The emoji sits on a dark disc: full-colour glyphs on a bright green ground
+   are muddy, and the disc gives each card a fixed anchor point. */
+.fcard .fe{width:52px;height:52px;border-radius:50%;background:#000;
+  display:flex;align-items:center;justify-content:center;font-size:27px;line-height:1}
+/* Body face, not the display face, and 500 rather than 600. On a green ground
+   heavy display type reads as shouting; this reads as a sentence. */
+.fcard .ft{position:relative;font-family:var(--body);font-weight:500;
+  font-size:clamp(17px,1.35vw,19px);line-height:1.35;letter-spacing:-.005em;
+  color:#000;margin-top:auto}
 @media(min-width:901px){
-  .fcard{transition:border-color .2s ease, transform .2s ease}
-  .fcard:hover{border-color:var(--green);transform:translateY(-2px)}}
+  .fcard{transition:transform .2s ease}
+  .fcard:hover{transform:translateY(-3px)}}
 @media(max-width:900px){
-  .focusgrid{grid-template-columns:1fr;gap:12px}
-  .fcard{min-height:0;padding:22px 20px 24px;flex-direction:row;align-items:center;gap:18px}
-  .fcard .fe{font-size:36px;flex:0 0 auto}
-  .fcard .ft{margin-top:0;font-size:19px}
-  .fcard .fn{position:absolute;top:12px;right:16px}
-  .fcard::after{font-size:64px;bottom:-14px;right:10px}}
+  .focusgrid{grid-template-columns:1fr;gap:10px}
+  .fcard{min-height:0;padding:18px 18px;flex-direction:row;align-items:center;gap:16px}
+  .fcard .fe{flex:0 0 auto;width:44px;height:44px;font-size:23px}
+  .fcard .ft{margin-top:0;font-size:17px}
+  .fcard .fn{position:absolute;top:10px;right:14px}
+  .fcard::after{font-size:60px;bottom:-16px;right:8px}}
 
 /* WHERE WE SIT NATIONALLY. Was four flat tiles and a bare table, which
    buried the only number that matters. The position is the story: a hero
@@ -422,7 +425,7 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
       <div class="s">Weekly scoreboard</div>
     </div>
     <div class="stamp">
-      Refreshed <b>Fri 28 Aug 2026, 8:37pm</b><br>
+      Refreshed <b>Fri 28 Aug 2026, 8:48pm</b><br>
       SolarQuotes live pages &middot; GoHighLevel read-only<br>
       Latest review 2026-08-27 &middot; rolling 7-day CRM window
     </div>
@@ -596,7 +599,6 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
             <line x1="6" y1="-1" x2="9" y2="-16" stroke="#8a7a55" stroke-width="1.6" stroke-linecap="round"/>
             <path d="M-2,0 L-3,-8 M3,0 L2,-8" stroke="#2f3d52" stroke-width="2.6" stroke-linecap="round" fill="none"/>
             <rect x="-8.5" y="-19" width="6.5" height="9" rx="2.2" fill="#F47A59"/>
-      </div>
             <path d="M0,-8 L0,-19" stroke="#DBE120" stroke-width="6" stroke-linecap="round"/>
             <path d="M1,-16 L6,-13" stroke="#DBE120" stroke-width="2.4" stroke-linecap="round" fill="none"/>
             <circle cx="0.5" cy="-22.5" r="3.4" fill="#f0c9a4"/>
@@ -607,6 +609,7 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
 
         <text class="mlabel base" x="118" y="394">BASE CAMP</text>
       </svg>
+      </div>
       <div class="note good">
         <b>33 of 200.</b> Silver is behind us. Gold is the next marker on the path,
         17 reviews up the hill.
