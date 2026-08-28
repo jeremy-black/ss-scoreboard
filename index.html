@@ -4,6 +4,10 @@
 <meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
 <title>Road to Legendary</title>
+<!-- Favicon inlined as an SVG data URI: the page has no sibling files on
+     GitHub Pages, and a linked .ico would be one more thing to keep in sync.
+     Summit Green peak on the brand's black, snow cap in white. -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='13' fill='%23000000'/%3E%3Cpath d='M6 50 L25 16 L34 32 L41 21 L58 50 Z' fill='%23DBE120'/%3E%3Cpath d='M18.5 30 L25 16 L31.5 27.5 Z' fill='%23FFFFFF'/%3E%3C/svg%3E">
 <!-- Without this a phone lays the page out at 980px and zooms out, so the
      breakpoints never fire and every number renders too small to read. -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -164,6 +168,41 @@ svg.ns-shield{width:68px;flex:none}
 /* No dasharray here on purpose: the path sets its own in the markup, in
    fractions of the trail, so it is correct before any script runs. */
 .climb .done{fill:none;stroke:var(--green);stroke-width:3.5;stroke-linecap:round}
+/* The lit trail carries a slow glow so the climbed section reads as live
+   rather than drawn. Filter only - no layout, no script. */
+.climb .done{animation:trailglow 3.2s ease-in-out infinite}
+@keyframes trailglow{
+  0%,100%{filter:drop-shadow(0 0 1.5px rgba(219,225,32,.30))}
+  50%    {filter:drop-shadow(0 0 6px   rgba(219,225,32,.85))}}
+
+/* A charge running up the climbed section, over and over. Confined to the lit
+   part because the keyframes stop at the progress percentage. */
+.climb .spark{fill:var(--green);animation:sparkrun 2.8s linear infinite}
+.climb .sparkhalo{fill:rgba(219,225,32,.28);animation:sparkrun 2.8s linear infinite}
+
+/* THE CLIMBER. His position is a CSS offset-distance, not <animateMotion>.
+   Motion animations are ADDITIVE to a transform attribute, so a static
+   fallback plus SMIL double-offsets him; offset-path replaces the position
+   outright, which means one declaration gives both the walk and the correct
+   resting place. The @supports block is the fallback: without offset-path he
+   simply sits at the computed point on the trail. Either way he is never at
+   the origin, which is what left him stranded before. */
+#hiker{transform:translate(var(--hx),var(--hy))}
+@supports (offset-path: path("M0,0 L1,1")){
+  #hiker{transform:none;offset-path:path(var(--trail));offset-rotate:0deg;
+    offset-distance:var(--prog);
+    animation:walk 2.6s cubic-bezier(.35,.75,.4,1) .35s backwards}
+  .climb .spark,.climb .sparkhalo{offset-path:path(var(--trail));offset-rotate:0deg}
+}
+@keyframes walk{from{offset-distance:0%}}
+@keyframes sparkrun{
+  0%  {offset-distance:0%;              opacity:0}
+  12% {                                 opacity:1}
+  88% {                                 opacity:1}
+  100%{offset-distance:var(--prog);     opacity:0}}
+@media(prefers-reduced-motion:reduce){
+  .climb .done,.climb .spark,.climb .sparkhalo,#hiker{animation:none}
+  .climb .spark,.climb .sparkhalo{opacity:0}}
 .mlabel{font-family:var(--mono);font-size:11px;font-weight:700;fill:var(--ink-3);letter-spacing:.1em}
 .mlabel.hit{fill:var(--green)}
 /* A milestone we have already passed lights up; one still ahead sits back.
@@ -429,7 +468,7 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
       <div class="s">Weekly scoreboard</div>
     </div>
     <div class="stamp">
-      Refreshed <b>Fri 28 Aug 2026, 9:16pm</b><br>
+      Refreshed <b>Fri 28 Aug 2026, 9:34pm</b><br>
       SolarQuotes live pages &middot; GoHighLevel read-only<br>
       Latest review 2026-08-27 &middot; rolling 7-day CRM window
     </div>
@@ -597,17 +636,31 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
         </g>
 
         <!-- the team, climbing -->
-        <g id="hiker" transform="translate(218.2,313.4)">
+        <!-- The charge running up the climbed section. Two circles: a soft
+             halo and a hard core, both following the same trail path. -->
+        <circle class="sparkhalo" r="5.5" style="--prog:16.50%;--trail:'M180,398 L228,340 L196,318 L330,290 L262,262 L395,236 L325,210 L420,186 L385,160 L445,132 L428,104 L470,70'"/>
+        <circle class="spark" r="2.2" style="--prog:16.50%;--trail:'M180,398 L228,340 L196,318 L330,290 L262,262 L395,236 L325,210 L420,186 L385,160 L445,132 L428,104 L470,70'"/>
+
+        <!-- The team, climbing. A sparky carrying a panel up the hill rather
+             than onto a roof: the panel is held overhead on two raised arms,
+             which is also the silhouette that reads at this size. -->
+        <g id="hiker" style="--hx:218.2px;--hy:313.4px;--prog:16.50%;--trail:'M180,398 L228,340 L196,318 L330,290 L262,262 L395,236 L325,210 L420,186 L385,160 L445,132 L428,104 L470,70'">
           <g transform="translate(0,-2) scale(1.6)">
             <ellipse cx="0" cy="1" rx="9" ry="3" fill="#000000" opacity=".45"/>
-            <line x1="6" y1="-1" x2="9" y2="-16" stroke="#8a7a55" stroke-width="1.6" stroke-linecap="round"/>
             <path d="M-2,0 L-3,-8 M3,0 L2,-8" stroke="#2f3d52" stroke-width="2.6" stroke-linecap="round" fill="none"/>
-            <rect x="-8.5" y="-19" width="6.5" height="9" rx="2.2" fill="#F47A59"/>
+            <rect x="-8.5" y="-19" width="6" height="8" rx="2.2" fill="#F47A59"/>
             <path d="M0,-8 L0,-19" stroke="#DBE120" stroke-width="6" stroke-linecap="round"/>
-            <path d="M1,-16 L6,-13" stroke="#DBE120" stroke-width="2.4" stroke-linecap="round" fill="none"/>
-            <circle cx="0.5" cy="-22.5" r="3.4" fill="#f0c9a4"/>
-            <path d="M-4,-24.5 h9" stroke="#2f3d52" stroke-width="1.8" stroke-linecap="round"/>
-            <path d="M-2.4,-25.6 a3,3 0 0 1 5.6,0 Z" fill="#2f3d52"/>
+            <!-- both arms up, holding the panel -->
+            <path d="M-1,-17 L-5,-25 M1,-17 L5,-25" stroke="#DBE120" stroke-width="2.4" stroke-linecap="round" fill="none"/>
+            <circle cx="0" cy="-22.5" r="3.4" fill="#f0c9a4"/>
+            <path d="M-4,-24.6 h8.5" stroke="#2f3d52" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M-2.4,-25.7 a3,3 0 0 1 5.6,0 Z" fill="#2f3d52"/>
+            <!-- the panel, tilted like it is being carried -->
+            <g transform="translate(0,-29) rotate(-8)">
+              <rect x="-11" y="-2.6" width="22" height="5.2" rx="0.8" fill="#1b2a3d" stroke="#52AFBC" stroke-width="0.9"/>
+              <path d="M-6.5,-2.6 v5.2 M-2,-2.6 v5.2 M2.5,-2.6 v5.2 M7,-2.6 v5.2 M-11,0 h22"
+                    stroke="#52AFBC" stroke-width="0.45" opacity=".8"/>
+            </g>
           </g>
         </g>
 
