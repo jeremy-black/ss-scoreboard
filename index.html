@@ -86,8 +86,6 @@ h3{font-size:15px;font-weight:600}
   stroke-linecap:round;stroke-linejoin:round}
 .refresh.spin svg{animation:sp .7s linear infinite;transform-origin:50% 50%}
 @keyframes sp{to{transform:rotate(360deg)}}
-.age{display:block;margin-top:7px}
-.age.stale{color:#F0A93B;font-weight:700}
 @media(max-width:640px){.refresh{margin-top:10px}}
 
 .band{padding:42px 0;border-bottom:1px solid var(--line)}
@@ -488,12 +486,10 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
       <div class="s">Weekly scoreboard</div>
     </div>
     <div class="stamp">
-      Refreshed <b>Sun 30 Aug 2026, 11:20am</b><br>
+      Refreshed <b>Sun 30 Aug 2026, 11:23am</b><br>
       SolarQuotes live pages &middot; GoHighLevel read-only<br>
       Latest review 2026-08-28 &middot; rolling 7-day CRM window
-      <span class="age" id="age" data-built="1788081629"></span>
-      <button class="refresh" id="refresh" type="button"
-              title="Pulls the newest published board past your browser cache">
+      <button class="refresh" id="refresh" type="button">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M20 11a8 8 0 1 0-.6 4"/><path d="M20 4v7h-7"/>
         </svg>
@@ -932,59 +928,23 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
   });
 })();
 
+
 // ------------------------------------------------------------------ refresh
-// What this button is and is not.
-//
-// It is NOT a data pull. The numbers on this page come from the collectors in
-// scripts/, which read SolarQuotes and GoHighLevel and then commit a new page.
-// Doing that from the browser would mean shipping the GHL token inside a
-// public page, so the button cannot and must not do it.
-//
-// What it DOES do is defeat a stale cache. The board deploys twice a day, but
-// a browser or the Pages CDN will happily keep serving an older copy, which is
-// the usual reason someone says the board "has not updated" when the deploy
-// ran fine. Reloading on a fresh URL forces the newest published copy down.
-//
-// The age line next to it is the honest part: it says how old the DATA is, and
-// turns amber past fourteen hours, so a genuinely stalled refresh is visible
-// rather than hidden behind a button that looks like it did something.
+// This reloads the published board; it does not re-scrape SolarQuotes.
+// It cannot: SolarQuotes sends no CORS header, so a fetch from this domain is
+// refused by the browser (verified 2026-08-30 against both the installer page
+// and the top_10_installers_list endpoint - "Failed to fetch" on each). The
+// live pull happens hourly in scripts/refresh-scoreboard.sh, which commits a
+// new page. All this button does is make sure you are looking at that newest
+// page and not a cached copy - hence the fresh URL each time.
 (function () {
-  var el  = document.getElementById('age');
   var btn = document.getElementById('refresh');
-  if (!el) return;
-
-  var built = parseInt(el.getAttribute('data-built'), 10);
-
-  function tick() {
-    if (!built) return;
-    var mins = Math.max(0, Math.round((Date.now() / 1000 - built) / 60));
-    var txt;
-    if (mins < 2)       txt = 'Data is current';
-    else if (mins < 60) txt = 'Data is ' + mins + ' min old';
-    else {
-      var h = Math.floor(mins / 60);
-      if (h < 24) txt = 'Data is ' + h + (h === 1 ? ' hour old' : ' hours old');
-      else {
-        var d = Math.floor(h / 24);
-        txt = 'Data is ' + d + (d === 1 ? ' day old' : ' days old');
-      }
-    }
-    el.textContent = txt;
-    // Twice-daily refresh, so anything past 14h means a run was missed.
-    el.className = 'age' + (mins > 840 ? ' stale' : '');
-  }
-  tick();
-  setInterval(tick, 60000);
-
   if (!btn) return;
   btn.addEventListener('click', function () {
     btn.classList.add('spin');
     btn.disabled = true;
-    var lbl = document.getElementById('refresh-label');
-    if (lbl) lbl.textContent = 'Refreshing';
-    // New URL every time, so nothing along the way can answer from cache.
     var u = location.pathname + '?r=' + Date.now() + location.hash;
-    setTimeout(function () { location.replace(u); }, 350);
+    setTimeout(function () { location.replace(u); }, 300);
   });
 })();
 </script>
