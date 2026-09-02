@@ -486,7 +486,7 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
       <div class="s">Weekly scoreboard</div>
     </div>
     <div class="stamp">
-      Refreshed <b>Wed 2 Sep 2026, 12:17pm</b><br>
+      Refreshed <b>Wed 2 Sep 2026, 8:22pm</b><br>
       SolarQuotes live pages &middot; GoHighLevel read-only<br>
       Latest review 2026-09-01 &middot; rolling 7-day CRM window<br>
       <button class="refresh" id="refresh" type="button">
@@ -929,22 +929,66 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
 })();
 
 
+
 // ------------------------------------------------------------------ refresh
-// This reloads the published board; it does not re-scrape SolarQuotes.
+// The button reloads the published board; it does not re-scrape SolarQuotes.
 // It cannot: SolarQuotes sends no CORS header, so a fetch from this domain is
 // refused by the browser (verified 2026-08-30 against both the installer page
 // and the top_10_installers_list endpoint - "Failed to fetch" on each). The
-// live pull happens hourly in scripts/refresh-scoreboard.sh, which commits a
-// new page. All this button does is make sure you are looking at that newest
-// page and not a cached copy - hence the fresh URL each time.
+// live pull happens in GitHub Actions, which commits a new page.
+//
+// WHY THE AUTO-CHECK BELOW EXISTS
+// Phones went stale while desktops looked fine (Jeremy, 2026-09-02). Two causes,
+// neither of them the button:
+//   1. GitHub Pages serves Cache-Control: max-age=600 and we cannot change that
+//      header on Pages.
+//   2. Worse, a backgrounded mobile tab is restored from the back-forward cache
+//      with NO network request at all, so a phone can sit on a days-old board
+//      indefinitely while the desktop re-requests and looks current.
+// So whenever the page becomes visible again we ask the server - with a cheap
+// HEAD, no body, no 345KB re-download - whether a newer board has been
+// published, and reload only if one has.
 (function () {
+  function freshUrl() {
+    return location.pathname + '?r=' + Date.now() + location.hash;
+  }
+
   var btn = document.getElementById('refresh');
-  if (!btn) return;
-  btn.addEventListener('click', function () {
-    btn.classList.add('spin');
-    btn.disabled = true;
-    var u = location.pathname + '?r=' + Date.now() + location.hash;
-    setTimeout(function () { location.replace(u); }, 300);
+  if (btn) {
+    btn.addEventListener('click', function () {
+      btn.classList.add('spin');
+      btn.disabled = true;
+      setTimeout(function () { location.replace(freshUrl()); }, 300);
+    });
+  }
+
+  // Restored straight from the back-forward cache - this page is whatever it
+  // was when the tab was backgrounded. Always go and get a real one.
+  window.addEventListener('pageshow', function (e) {
+    if (e.persisted) location.replace(freshUrl());
+  });
+
+  // ETag of the copy we are currently showing. Captured on load rather than
+  // baked in at build time, because GitHub sets it when the commit lands.
+  var seen = null, busy = false;
+
+  function probe() {
+    if (busy) return;
+    busy = true;
+    fetch(location.pathname, { method: 'HEAD', cache: 'no-store' })
+      .then(function (r) {
+        var tag = r.headers.get('etag') || r.headers.get('last-modified');
+        if (!tag) return;
+        if (seen === null) { seen = tag; return; }   // first look, just record
+        if (tag !== seen) location.replace(freshUrl());
+      })
+      .catch(function () { /* offline or blocked - keep showing what we have */ })
+      .then(function () { busy = false; });
+  }
+
+  probe();
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden) probe();
   });
 })();
 </script>
