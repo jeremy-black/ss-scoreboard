@@ -10,6 +10,10 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='13' fill='%23000000'/%3E%3Cpath d='M6 50 L25 16 L34 32 L41 21 L58 50 Z' fill='%23DBE120'/%3E%3Cpath d='M18.5 30 L25 16 L31.5 27.5 Z' fill='%23FFFFFF'/%3E%3C/svg%3E">
 <!-- Without this a phone lays the page out at 980px and zooms out, so the
      breakpoints never fire and every number renders too small to read. -->
+<!-- Build identity. version.txt beside this page carries the same value, so
+     the page can ask "is there a newer board?" by fetching a few bytes rather
+     than re-downloading 345KB. See the refresh block at the foot of the page. -->
+<meta name="board-build" content="1788344935">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Summit + Shore weekly scoreboard. 41 of 200 SolarQuotes reviews towards Legendary, ACT ranking, and live sales pipeline.">
 <meta property="og:type" content="website">
@@ -486,7 +490,7 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
       <div class="s">Weekly scoreboard</div>
     </div>
     <div class="stamp">
-      Refreshed <b>Wed 2 Sep 2026, 8:24pm</b><br>
+      Refreshed <b>Wed 2 Sep 2026, 8:28pm</b><br>
       SolarQuotes live pages &middot; GoHighLevel read-only<br>
       Latest review 2026-09-01 &middot; rolling 7-day CRM window<br>
       <button class="refresh" id="refresh" type="button">
@@ -930,24 +934,32 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
 
 
 
+
 // ------------------------------------------------------------------ refresh
 // The button reloads the published board; it does not re-scrape SolarQuotes.
 // It cannot: SolarQuotes sends no CORS header, so a fetch from this domain is
 // refused by the browser (verified 2026-08-30 against both the installer page
-// and the top_10_installers_list endpoint - "Failed to fetch" on each). The
-// live pull happens in GitHub Actions, which commits a new page.
+// and the top_10_installers_list endpoint). The live pull runs in GitHub
+// Actions, which commits a new page.
 //
-// WHY THE AUTO-CHECK BELOW EXISTS
-// Phones went stale while desktops looked fine (Jeremy, 2026-09-02). Two causes,
-// neither of them the button:
-//   1. GitHub Pages serves Cache-Control: max-age=600 and we cannot change that
-//      header on Pages.
-//   2. Worse, a backgrounded mobile tab is restored from the back-forward cache
-//      with NO network request at all, so a phone can sit on a days-old board
-//      indefinitely while the desktop re-requests and looks current.
-// So whenever the page becomes visible again we ask the server - with a cheap
-// HEAD, no body, no 345KB re-download - whether a newer board has been
-// published, and reload only if one has.
+// WHY THE AUTO-CHECK EXISTS
+// Phones sat on stale numbers while desktops looked current (2026-09-02). The
+// button was never at fault. Two causes, neither fixable server-side here:
+//   1. GitHub Pages serves Cache-Control: max-age=600 and that header is not
+//      configurable on Pages.
+//   2. Worse, a backgrounded mobile tab is restored from the back-forward
+//      cache with NO network request at all, so a phone can hold a days-old
+//      board indefinitely while a desktop re-requests and looks fine.
+//
+// HOW IT DECIDES
+// The build epoch is baked into <meta name="board-build">, and deploy writes
+// the same value to version.txt beside the page. So "is there a newer board?"
+// costs a few bytes, not a 345KB re-download, and the answer is unambiguous.
+//
+// An earlier attempt compared ETags captured at runtime. That was wrong: the
+// first probe can be aborted during page load, leaving the comparison unarmed,
+// and the next probe then merely records instead of comparing - so a real
+// update was missed. Baked-in identity has no such arming race.
 (function () {
   function freshUrl() {
     return location.pathname + '?r=' + Date.now() + location.hash;
@@ -962,34 +974,37 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
     });
   }
 
-  // Restored straight from the back-forward cache - this page is whatever it
-  // was when the tab was backgrounded. Always go and get a real one.
+  // Restored straight from the back-forward cache: this page is whatever it
+  // was when the tab was backgrounded. Always go and fetch a real one.
   window.addEventListener('pageshow', function (e) {
     if (e.persisted) location.replace(freshUrl());
   });
 
-  // ETag of the copy we are currently showing. Captured on load rather than
-  // baked in at build time, because GitHub sets it when the commit lands.
-  var seen = null, busy = false;
+  var meta = document.querySelector('meta[name="board-build"]');
+  var mine = meta && meta.content;
+  if (!mine) return;              // nothing to compare against, leave it alone
+  var busy = false;
 
   function probe() {
-    if (busy) return;
+    if (busy || document.hidden) return;
     busy = true;
-    fetch(location.pathname, { method: 'HEAD', cache: 'no-store' })
-      .then(function (r) {
-        var tag = r.headers.get('etag') || r.headers.get('last-modified');
-        if (!tag) return;
-        if (seen === null) { seen = tag; return; }   // first look, just record
-        if (tag !== seen) location.replace(freshUrl());
+    fetch('version.txt?t=' + Date.now(), { cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.text() : null; })
+      .then(function (txt) {
+        if (!txt) return;
+        var live = txt.trim();
+        // Only ever move forward. A stale CDN edge answering with an older
+        // build must not bounce the page into a reload loop.
+        if (/^\d+$/.test(live) && Number(live) > Number(mine)) {
+          location.replace(freshUrl());
+        }
       })
-      .catch(function () { /* offline or blocked - keep showing what we have */ })
+      .catch(function () { /* offline - keep showing what we have */ })
       .then(function () { busy = false; });
   }
 
   probe();
-  document.addEventListener('visibilitychange', function () {
-    if (!document.hidden) probe();
-  });
+  document.addEventListener('visibilitychange', probe);
 })();
 </script>
 
