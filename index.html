@@ -13,7 +13,7 @@
 <!-- Build identity. version.txt beside this page carries the same value, so
      the page can ask "is there a newer board?" by fetching a few bytes rather
      than re-downloading 345KB. See the refresh block at the foot of the page. -->
-<meta name="board-build" content="1789372215">
+<meta name="board-build" content="1789382908">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Summit + Shore weekly scoreboard. 50 of 200 SolarQuotes reviews towards Legendary, ACT ranking, and live sales pipeline.">
 <meta property="og:type" content="website">
@@ -247,6 +247,52 @@ svg.ns-shield{width:68px;flex:none}
 @keyframes hover{0%,100%{transform:translate(0,0)}50%{transform:translate(-14px,7px)}}
 .rotor{animation:spin .18s linear infinite;transform-origin:0 -20px}
 @keyframes spin{from{transform:scaleX(1)}50%{transform:scaleX(.15)}to{transform:scaleX(1)}}
+
+/* GOLD, 14 SEPT 2026. Fireworks over the highest shield we have earned, a
+   beach at the foot of the mountain, and a surfer who rides across about
+   once a minute. Same rules as everything else here: CSS only, no script,
+   and the whole lot switches off under prefers-reduced-motion.
+   Fireworks: a burst when the board opens, then a burst every 45 seconds.
+   Each particle is one keyframe animation; the burst lives in the first 4%
+   of the cycle and the particle is invisible for the other 96%. */
+.fw .p{transform-origin:0 0;animation:fwshoot 45s ease-out .6s infinite;opacity:0}
+.fw .p.r2{animation-name:fwshoot2;animation-delay:1.3s}
+.fw .p circle{fill:var(--c)}
+@keyframes fwshoot{
+  0%  {transform:rotate(var(--a)) translate(0,0) scale(.6);opacity:0}
+  0.6%{opacity:1}
+  3.2%{transform:rotate(var(--a)) translate(0,-46px) scale(1);opacity:.9}
+  4.4%{transform:rotate(var(--a)) translate(0,-54px) scale(.2);opacity:0}
+  100%{transform:rotate(var(--a)) translate(0,-54px) scale(.2);opacity:0}}
+@keyframes fwshoot2{
+  0%  {transform:rotate(var(--a)) translate(0,0) scale(.6);opacity:0}
+  0.6%{opacity:1}
+  3.2%{transform:rotate(var(--a)) translate(0,-30px) scale(1);opacity:.9}
+  4.4%{transform:rotate(var(--a)) translate(0,-36px) scale(.2);opacity:0}
+  100%{transform:rotate(var(--a)) translate(0,-36px) scale(.2);opacity:0}}
+/* The earned shield itself breathes gold so it reads as the thing being
+   celebrated, not just the thing the sparks happen to be near. */
+.ms.lit .msb{animation:shieldglow 3s ease-in-out infinite}
+@keyframes shieldglow{
+  0%,100%{filter:drop-shadow(0 0 3px rgba(219,225,32,.35))}
+  50%    {filter:drop-shadow(0 0 12px rgba(219,225,32,.95))}}
+/* The surfer. One ride left to right in the first 14 seconds of a 60 second
+   cycle, parked off-screen for the rest. The bob is a second animation on the
+   inner group so the two do not fight over one transform. */
+.surfer{animation:surfride 60s linear 2s infinite}
+.surfer .bob{animation:surfbob 1.1s ease-in-out infinite}
+@keyframes surfride{
+  0%  {transform:translate(-140px,0)}
+  22% {transform:translate(1040px,0)}
+  100%{transform:translate(1040px,0)}}
+@keyframes surfbob{0%,100%{transform:translate(0,0) rotate(-4deg)}50%{transform:translate(0,-3px) rotate(4deg)}}
+/* Palms lean in the breeze. Tiny, slow, from the base of the trunk. */
+.palm{animation:sway 5s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
+.palm.p2{animation-delay:1.7s}.palm.p3{animation-delay:3.1s}
+@keyframes sway{0%,100%{transform:rotate(-1.5deg)}50%{transform:rotate(1.5deg)}}
+/* Water moves. */
+.swell{animation:swell 6s ease-in-out infinite}
+@keyframes swell{0%,100%{transform:translate(0,0)}50%{transform:translate(-9px,1px)}}
 
 /* --------------------------------------------------------------- charts */
 .bars{display:flex;flex-direction:column;gap:9px;margin-top:4px}
@@ -490,7 +536,7 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
       <div class="s">Weekly scoreboard</div>
     </div>
     <div class="stamp">
-      Refreshed <b>Mon 14 Sep 2026, 5:50pm</b><br>
+      Refreshed <b>Mon 14 Sep 2026, 8:48pm</b><br>
       SolarQuotes live pages &middot; GoHighLevel read-only<br>
       Latest review 2026-09-14 &middot; rolling 7-day CRM window<br>
       <button class="refresh" id="refresh" type="button">
@@ -592,18 +638,67 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
           <path d="M806,400 l10,-24 l10,24 Z"/>
         </g>
 
-        <!-- shore -->
-        <path d="M30,400 Q130,396 250,398 T540,397 T884,401 L884,411 L30,411 Z" fill="#3b382f" opacity=".85"/>
-        <path d="M0,409 Q150,402 320,408 T650,406 T900,411 L900,460 L0,460 Z" fill="url(#sea)"/>
-        <g fill="none" stroke="#52AFBC" stroke-width="1.7" stroke-linecap="round">
-          <path d="M44,428 q17,-8 34,0" stroke-opacity=".55"/>
-          <path d="M138,422 q17,-8 34,0" stroke-opacity=".35"/>
-          <path d="M244,436 q17,-8 34,0" stroke-opacity=".5"/>
-          <path d="M366,425 q17,-8 34,0" stroke-opacity=".3"/>
-          <path d="M486,440 q17,-8 34,0" stroke-opacity=".45"/>
-          <path d="M604,424 q17,-8 34,0" stroke-opacity=".35"/>
-          <path d="M722,438 q17,-8 34,0" stroke-opacity=".5"/>
-          <path d="M834,427 q17,-8 34,0" stroke-opacity=".3"/>
+        <!-- THE BEACH. Summit and Shore: the mountain rises straight out of
+             the sand. Flat shapes in the brand palette, same as the mountain.
+             Sand band, then the water, then the swell lines, then the palms
+             at each end so they frame the climb rather than cover it. -->
+        <path d="M0,398 Q120,392 250,396 T540,395 T900,399 L900,414 L0,416 Z" fill="#cbb98a"/>
+        <path d="M0,398 Q120,392 250,396 T540,395 T900,399 L900,404 L0,406 Z" fill="#e6d7a8" opacity=".55"/>
+        <path d="M0,412 Q150,405 320,411 T650,409 T900,414 L900,460 L0,460 Z" fill="url(#sea)"/>
+        <path d="M0,412 Q150,405 320,411 T650,409 T900,414" fill="none" stroke="#ffffff" stroke-opacity=".35" stroke-width="1.4"/>
+        <g class="swell" fill="none" stroke="#52AFBC" stroke-width="1.7" stroke-linecap="round">
+          <path d="M44,430 q17,-8 34,0" stroke-opacity=".55"/>
+          <path d="M138,424 q17,-8 34,0" stroke-opacity=".35"/>
+          <path d="M244,438 q17,-8 34,0" stroke-opacity=".5"/>
+          <path d="M366,427 q17,-8 34,0" stroke-opacity=".3"/>
+          <path d="M486,442 q17,-8 34,0" stroke-opacity=".45"/>
+          <path d="M604,426 q17,-8 34,0" stroke-opacity=".35"/>
+          <path d="M722,440 q17,-8 34,0" stroke-opacity=".5"/>
+          <path d="M834,429 q17,-8 34,0" stroke-opacity=".3"/>
+        </g>
+        <!-- palms: a curved trunk, five fronds, a couple of coconuts -->
+        <g class="palm">
+          <path d="M62,400 q4,-30 -2,-56" fill="none" stroke="#6b4a2b" stroke-width="4" stroke-linecap="round"/>
+          <g fill="#2e7d5b" stroke="#1b3a2c" stroke-width=".8">
+            <path d="M60,344 q-26,-4 -40,14 q22,-6 40,2 Z"/><path d="M60,344 q26,-4 40,14 q-22,-6 -40,2 Z"/>
+            <path d="M60,344 q-18,-18 -36,-8 q20,2 36,14 Z"/><path d="M60,344 q18,-18 36,-8 q-20,2 -36,14 Z"/>
+            <path d="M60,344 q-2,-22 8,-30 q-2,18 -6,32 Z"/>
+          </g>
+          <circle cx="57" cy="349" r="2.4" fill="#6b4a2b"/><circle cx="63" cy="350" r="2.4" fill="#6b4a2b"/>
+        </g>
+        <g class="palm p2" transform="translate(28,0) scale(.72)">
+          <path d="M62,400 q-6,-28 4,-52" fill="none" stroke="#6b4a2b" stroke-width="4" stroke-linecap="round"/>
+          <g fill="#2e7d5b" stroke="#1b3a2c" stroke-width=".8">
+            <path d="M66,348 q-26,-4 -40,14 q22,-6 40,2 Z"/><path d="M66,348 q26,-4 40,14 q-22,-6 -40,2 Z"/>
+            <path d="M66,348 q-18,-18 -36,-8 q20,2 36,14 Z"/><path d="M66,348 q18,-18 36,-8 q-20,2 -36,14 Z"/>
+          </g>
+        </g>
+        <g class="palm p3" transform="translate(790,0)">
+          <path d="M62,400 q6,-30 -4,-58" fill="none" stroke="#6b4a2b" stroke-width="4" stroke-linecap="round"/>
+          <g fill="#2e7d5b" stroke="#1b3a2c" stroke-width=".8">
+            <path d="M58,342 q-26,-4 -40,14 q22,-6 40,2 Z"/><path d="M58,342 q26,-4 40,14 q-22,-6 -40,2 Z"/>
+            <path d="M58,342 q-18,-18 -36,-8 q20,2 36,14 Z"/><path d="M58,342 q18,-18 36,-8 q-20,2 -36,14 Z"/>
+            <path d="M58,342 q2,-22 -8,-30 q2,18 6,32 Z"/>
+          </g>
+          <circle cx="55" cy="347" r="2.4" fill="#6b4a2b"/><circle cx="61" cy="348" r="2.4" fill="#6b4a2b"/>
+        </g>
+        <g class="palm" transform="translate(832,0) scale(.68)">
+          <path d="M62,400 q-4,-26 6,-50" fill="none" stroke="#6b4a2b" stroke-width="4" stroke-linecap="round"/>
+          <g fill="#2e7d5b" stroke="#1b3a2c" stroke-width=".8">
+            <path d="M68,350 q-26,-4 -40,14 q22,-6 40,2 Z"/><path d="M68,350 q26,-4 40,14 q-22,-6 -40,2 Z"/>
+            <path d="M68,350 q-18,-18 -36,-8 q20,2 36,14 Z"/><path d="M68,350 q18,-18 36,-8 q-20,2 -36,14 Z"/>
+          </g>
+        </g>
+        <!-- THE SURFER. Rides the swell left to right once a minute. The wave
+             is drawn with him so the foam travels too. -->
+        <g class="surfer">
+          <g class="bob" transform="translate(0,434)">
+            <path d="M-40,8 q20,-14 40,-6 q14,6 30,2 q-8,10 -30,10 q-24,0 -40,-6 Z" fill="#52AFBC" opacity=".9"/>
+            <path d="M-40,8 q20,-14 40,-6 q14,6 30,2" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" opacity=".85"/>
+            <path d="M-12,0 L24,-4" stroke="#DBE120" stroke-width="3.6" stroke-linecap="round"/>
+            <path d="M4,-3 L2,-12 M2,-12 L-4,-18 M2,-12 L9,-16 M2,-12 L0,-7 L-4,-3 M2,-12 L6,-6 L10,-3" stroke="#2f3d52" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+            <circle cx="3" cy="-21" r="3" fill="#f0c9a4"/>
+          </g>
         </g>
 
         <!-- The trail. Switchbacks on the lit face, deliberately long so the
@@ -623,25 +718,28 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
           <text class="mlabel" x="90" y="-4">SILVER</text>
           <animateMotion dur="0.001s" fill="freeze" calcMode="linear" keyPoints="0;0.075" keyTimes="0;1"><mpath href="#trail" xlink:href="#trail"/></animateMotion>
         </g>
-        <g class="ms passed">
+        <g class="ms passed lit">
           <line class="lead" x1="0" y1="0" x2="46" y2="-8"/>
           <circle class="dot" r="4.5"/>
           <use class="msb" href="#bg-gold" x="46" y="-26" width="38" height="35"/>
+          <g class="fw" transform="translate(65,-9)"><g class="p" style="--a:0deg;--c:#DBE120"><circle r="2.4"/></g><g class="p r2" style="--a:15deg;--c:#DBE120"><circle r="1.7"/></g><g class="p" style="--a:30deg;--c:#ffffff"><circle r="2.4"/></g><g class="p r2" style="--a:45deg;--c:#ffffff"><circle r="1.7"/></g><g class="p" style="--a:60deg;--c:#F47A59"><circle r="2.4"/></g><g class="p r2" style="--a:75deg;--c:#F47A59"><circle r="1.7"/></g><g class="p" style="--a:90deg;--c:#52AFBC"><circle r="2.4"/></g><g class="p r2" style="--a:105deg;--c:#52AFBC"><circle r="1.7"/></g><g class="p" style="--a:120deg;--c:#DBE120"><circle r="2.4"/></g><g class="p r2" style="--a:135deg;--c:#DBE120"><circle r="1.7"/></g><g class="p" style="--a:150deg;--c:#ffffff"><circle r="2.4"/></g><g class="p r2" style="--a:165deg;--c:#ffffff"><circle r="1.7"/></g><g class="p" style="--a:180deg;--c:#DBE120"><circle r="2.4"/></g><g class="p r2" style="--a:195deg;--c:#DBE120"><circle r="1.7"/></g><g class="p" style="--a:210deg;--c:#ffffff"><circle r="2.4"/></g><g class="p r2" style="--a:225deg;--c:#ffffff"><circle r="1.7"/></g><g class="p" style="--a:240deg;--c:#F47A59"><circle r="2.4"/></g><g class="p r2" style="--a:255deg;--c:#F47A59"><circle r="1.7"/></g><g class="p" style="--a:270deg;--c:#52AFBC"><circle r="2.4"/></g><g class="p r2" style="--a:285deg;--c:#52AFBC"><circle r="1.7"/></g><g class="p" style="--a:300deg;--c:#DBE120"><circle r="2.4"/></g><g class="p r2" style="--a:315deg;--c:#DBE120"><circle r="1.7"/></g><g class="p" style="--a:330deg;--c:#ffffff"><circle r="2.4"/></g><g class="p r2" style="--a:345deg;--c:#ffffff"><circle r="1.7"/></g></g>
           <text class="mlabel" x="90" y="-4">GOLD</text>
           <animateMotion dur="0.001s" fill="freeze" calcMode="linear" keyPoints="0;0.25" keyTimes="0;1"><mpath href="#trail" xlink:href="#trail"/></animateMotion>
         </g>
-        <g class="ms ">
+        <g class="ms  ">
           <line class="lead" x1="0" y1="0" x2="46" y2="-8"/>
           <circle class="dot" r="4.5"/>
           <use class="msb" href="#bg-plat" x="46" y="-26" width="38" height="35"/>
+          
           <text class="mlabel" x="90" y="-4">PLATINUM</text>
           <animateMotion dur="0.001s" fill="freeze" calcMode="linear" keyPoints="0;0.5" keyTimes="0;1"><mpath href="#trail" xlink:href="#trail"/></animateMotion>
         </g>
 
         <!-- Legendary, planted on the summit -->
-        <g transform="translate(470,70)" class="ms summit ">
+        <g transform="translate(470,70)" class="ms summit  ">
           <line x1="0" y1="-4" x2="0" y2="-24" stroke="#7a7a7a" stroke-width="2"/>
           <use class="msb" href="#bg-leg" x="-33" y="-88" width="66" height="61"/>
+          
           <text class="mlabel hit" x="44" y="-54">LEGENDARY</text>
         </g>
 
@@ -758,15 +856,15 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
         <div class="bring"><div class="bfill" style="--pct:100%"></div></div>
         <div class="bstat done">Earned &#10003;</div>
       </div>
-      <div class="badge locked anim d3">
+      <div class="badge earned anim d3">
         <div class="shield">
           <svg class="sh" viewBox="0 0 556 508" role="img" aria-label="SolarQuotes Gold rated installer"><use href="#bg-gold"/></svg>
-          <div class="lock">&#128274;</div>
+          
         </div>
         <div class="bname">Gold</div>
         <div class="bthr">50 reviews &middot; 4.3</div>
         <div class="bring"><div class="bfill" style="--pct:100%"></div></div>
-        <div class="bstat"><b>50 / 50</b><span>0 to go, about 0 weeks</span></div>
+        <div class="bstat done">Earned &#10003;</div>
       </div>
       <div class="badge locked anim d4">
         <div class="shield">
@@ -841,7 +939,7 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
     <div class="grid split">
       <div class="card anim d5">
         <span class="eyebrow">Reviews collected, last 28 days</span>
-        <div class="bars" style="margin-top:16px"><div class="row"><div class="nm">RESINC Solar</div><div class="bar dim" style="--w:100%"></div><div class="qt">50</div></div><div class="row me"><div class="nm">Summit&nbsp;+&nbsp;Shore</div><div class="bar us" style="--w:62%"></div><div class="qt">31</div></div><div class="row"><div class="nm">Lenergy</div><div class="bar dim" style="--w:44%"></div><div class="qt">22</div></div><div class="row"><div class="nm">Stag Electrical Solar and Refrigeration</div><div class="bar dim" style="--w:22%"></div><div class="qt">11</div></div><div class="row"><div class="nm">PBR Solar</div><div class="bar dim" style="--w:18%"></div><div class="qt">9</div></div><div class="row"><div class="nm">Isolated Electrical Qld</div><div class="bar dim" style="--w:18%"></div><div class="qt">9</div></div><div class="row"><div class="nm">Jet Solar Pty Ltd</div><div class="bar dim" style="--w:16%"></div><div class="qt">8</div></div><div class="row"><div class="nm">EnergyFlo Renewables</div><div class="bar dim" style="--w:16%"></div><div class="qt">8</div></div><div class="row"><div class="nm">Goulburn Solar</div><div class="bar dim" style="--w:12%"></div><div class="qt">6</div></div><div class="row"><div class="nm">Exceed Solar</div><div class="bar dim" style="--w:10%"></div><div class="qt">5</div></div><div class="row"><div class="nm">Beyond Solar</div><div class="bar dim" style="--w:10%"></div><div class="qt">5</div></div><div class="row"><div class="nm">Stored Power Pty Ltd</div><div class="bar dim" style="--w:8%"></div><div class="qt">4</div></div><div class="row"><div class="nm">Reef Solar and Electrical</div><div class="bar dim" style="--w:8%"></div><div class="qt">4</div></div><div class="row"><div class="nm">Huglo Solar</div><div class="bar dim" style="--w:6%"></div><div class="qt">3</div></div><div class="row"><div class="nm">Decarby Solar</div><div class="bar dim" style="--w:4%"></div><div class="qt">2</div></div><div class="row"><div class="nm">Solar4Life</div><div class="bar dim" style="--w:2%"></div><div class="qt">1</div></div><div class="row"><div class="nm">Green Line Solar</div><div class="bar dim" style="--w:2%"></div><div class="qt">1</div></div><div class="row"><div class="nm">ECG Electrical</div><div class="bar dim" style="--w:2%"></div><div class="qt">1</div></div><div class="row zero"><div class="nm">Sunbuilt Solar</div><div class="bar" style="--w:0%"></div><div class="qt">0</div></div></div>
+        <div class="bars" style="margin-top:16px"><div class="row"><div class="nm">RESINC Solar</div><div class="bar dim" style="--w:100%"></div><div class="qt">50</div></div><div class="row me"><div class="nm">Summit&nbsp;+&nbsp;Shore</div><div class="bar us" style="--w:62%"></div><div class="qt">31</div></div><div class="row"><div class="nm">Lenergy</div><div class="bar dim" style="--w:44%"></div><div class="qt">22</div></div><div class="row"><div class="nm">Stag Electrical Solar and Refrigeration</div><div class="bar dim" style="--w:22%"></div><div class="qt">11</div></div><div class="row"><div class="nm">PBR Solar</div><div class="bar dim" style="--w:18%"></div><div class="qt">9</div></div><div class="row"><div class="nm">Jet Solar Pty Ltd</div><div class="bar dim" style="--w:18%"></div><div class="qt">9</div></div><div class="row"><div class="nm">Isolated Electrical Qld</div><div class="bar dim" style="--w:18%"></div><div class="qt">9</div></div><div class="row"><div class="nm">EnergyFlo Renewables</div><div class="bar dim" style="--w:16%"></div><div class="qt">8</div></div><div class="row"><div class="nm">Goulburn Solar</div><div class="bar dim" style="--w:12%"></div><div class="qt">6</div></div><div class="row"><div class="nm">Stored Power Pty Ltd</div><div class="bar dim" style="--w:10%"></div><div class="qt">5</div></div><div class="row"><div class="nm">Exceed Solar</div><div class="bar dim" style="--w:10%"></div><div class="qt">5</div></div><div class="row"><div class="nm">Beyond Solar</div><div class="bar dim" style="--w:10%"></div><div class="qt">5</div></div><div class="row"><div class="nm">Reef Solar and Electrical</div><div class="bar dim" style="--w:8%"></div><div class="qt">4</div></div><div class="row"><div class="nm">Huglo Solar</div><div class="bar dim" style="--w:6%"></div><div class="qt">3</div></div><div class="row"><div class="nm">Decarby Solar</div><div class="bar dim" style="--w:4%"></div><div class="qt">2</div></div><div class="row"><div class="nm">Solar4Life</div><div class="bar dim" style="--w:2%"></div><div class="qt">1</div></div><div class="row"><div class="nm">Green Line Solar</div><div class="bar dim" style="--w:2%"></div><div class="qt">1</div></div><div class="row"><div class="nm">ECG Electrical</div><div class="bar dim" style="--w:2%"></div><div class="qt">1</div></div><div class="row zero"><div class="nm">Sunbuilt Solar</div><div class="bar" style="--w:0%"></div><div class="qt">0</div></div></div>
         <div class="note good">
           <b>Recent pace is where we already compete.</b> Only one installer in the ACT collected
           more than us over the last 28 days, and several of the biggest names collected none.
@@ -852,7 +950,7 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
         <div class="tscroll">
           <table>
             <thead><tr><th>Installer</th><th>Reviews</th><th>Avg</th><th>Tier</th></tr></thead>
-            <tbody><tr><td>RESINC Solar</td><td>3458</td><td>5.00</td><td><span class="tier t-legendary">Legendary</span></td></tr><tr><td>Jet Solar Pty Ltd</td><td>641</td><td>5.00</td><td><span class="tier t-legendary">Legendary</span></td></tr><tr><td>Lenergy</td><td>305</td><td>4.90</td><td><span class="tier t-legendary">Legendary</span></td></tr><tr><td>Beyond Solar</td><td>579</td><td>4.50</td><td><span class="tier t-platinum">Platinum</span></td></tr><tr><td>Stag Electrical Solar and Refrigeration</td><td>418</td><td>4.80</td><td><span class="tier t-platinum">Platinum</span></td></tr><tr><td>ECG Electrical</td><td>340</td><td>4.80</td><td><span class="tier t-platinum">Platinum</span></td></tr><tr><td>Green Line Solar</td><td>196</td><td>5.00</td><td><span class="tier t-platinum">Platinum</span></td></tr><tr><td>PBR Solar</td><td>161</td><td>5.00</td><td><span class="tier t-platinum">Platinum</span></td></tr><tr><td>Huglo Solar</td><td>159</td><td>4.80</td><td><span class="tier t-platinum">Platinum</span></td></tr><tr><td>Reef Solar and Electrical</td><td>147</td><td>5.00</td><td><span class="tier t-platinum">Platinum</span></td></tr><tr><td>Solar4Life</td><td>155</td><td>4.70</td><td><span class="tier t-gold">Gold</span></td></tr><tr><td>Goulburn Solar</td><td>123</td><td>4.90</td><td><span class="tier t-gold">Gold</span></td></tr><tr><td>Exceed Solar</td><td>109</td><td>4.90</td><td><span class="tier t-gold">Gold</span></td></tr><tr><td>EnergyFlo Renewables</td><td>68</td><td>5.00</td><td><span class="tier t-gold">Gold</span></td></tr><tr><td>Isolated Electrical Qld</td><td>62</td><td>5.00</td><td><span class="tier t-gold">Gold</span></td></tr><tr class="me"><td>Summit + Shore</td><td>53</td><td>5.00</td><td><span class="tier t-silver">Silver</span></td></tr><tr><td>Stored Power Pty Ltd</td><td>17</td><td>5.00</td><td><span class="tier t-silver">Silver</span></td></tr></tbody>
+            <tbody><tr><td>RESINC Solar</td><td>3458</td><td>5.00</td><td><span class="tier t-legendary">Legendary</span></td></tr><tr><td>Jet Solar Pty Ltd</td><td>642</td><td>5.00</td><td><span class="tier t-legendary">Legendary</span></td></tr><tr><td>Lenergy</td><td>305</td><td>4.90</td><td><span class="tier t-legendary">Legendary</span></td></tr><tr><td>Beyond Solar</td><td>579</td><td>4.50</td><td><span class="tier t-platinum">Platinum</span></td></tr><tr><td>Stag Electrical Solar and Refrigeration</td><td>418</td><td>4.80</td><td><span class="tier t-platinum">Platinum</span></td></tr><tr><td>ECG Electrical</td><td>340</td><td>4.80</td><td><span class="tier t-platinum">Platinum</span></td></tr><tr><td>Green Line Solar</td><td>196</td><td>5.00</td><td><span class="tier t-platinum">Platinum</span></td></tr><tr><td>PBR Solar</td><td>161</td><td>5.00</td><td><span class="tier t-platinum">Platinum</span></td></tr><tr><td>Huglo Solar</td><td>159</td><td>4.80</td><td><span class="tier t-platinum">Platinum</span></td></tr><tr><td>Reef Solar and Electrical</td><td>147</td><td>5.00</td><td><span class="tier t-platinum">Platinum</span></td></tr><tr><td>Solar4Life</td><td>155</td><td>4.70</td><td><span class="tier t-gold">Gold</span></td></tr><tr><td>Goulburn Solar</td><td>123</td><td>4.90</td><td><span class="tier t-gold">Gold</span></td></tr><tr><td>Exceed Solar</td><td>109</td><td>4.90</td><td><span class="tier t-gold">Gold</span></td></tr><tr><td>EnergyFlo Renewables</td><td>68</td><td>5.00</td><td><span class="tier t-gold">Gold</span></td></tr><tr><td>Isolated Electrical Qld</td><td>62</td><td>5.00</td><td><span class="tier t-gold">Gold</span></td></tr><tr class="me"><td>Summit + Shore</td><td>53</td><td>5.00</td><td><span class="tier t-silver">Silver</span></td></tr><tr><td>Stored Power Pty Ltd</td><td>18</td><td>5.00</td><td><span class="tier t-silver">Silver</span></td></tr></tbody>
           </table>
         </div>
         <div class="note">
