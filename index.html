@@ -13,7 +13,7 @@
 <!-- Build identity. version.txt beside this page carries the same value, so
      the page can ask "is there a newer board?" by fetching a few bytes rather
      than re-downloading 345KB. See the refresh block at the foot of the page. -->
-<meta name="board-build" content="1789382908">
+<meta name="board-build" content="1789383229">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Summit + Shore weekly scoreboard. 50 of 200 SolarQuotes reviews towards Legendary, ACT ranking, and live sales pipeline.">
 <meta property="og:type" content="website">
@@ -536,7 +536,7 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
       <div class="s">Weekly scoreboard</div>
     </div>
     <div class="stamp">
-      Refreshed <b>Mon 14 Sep 2026, 8:48pm</b><br>
+      Refreshed <b>Mon 14 Sep 2026, 8:53pm</b><br>
       SolarQuotes live pages &middot; GoHighLevel read-only<br>
       Latest review 2026-09-14 &middot; rolling 7-day CRM window<br>
       <button class="refresh" id="refresh" type="button">
@@ -657,7 +657,7 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
           <path d="M834,429 q17,-8 34,0" stroke-opacity=".3"/>
         </g>
         <!-- palms: a curved trunk, five fronds, a couple of coconuts -->
-        <g class="palm">
+        <g><g class="palm">
           <path d="M62,400 q4,-30 -2,-56" fill="none" stroke="#6b4a2b" stroke-width="4" stroke-linecap="round"/>
           <g fill="#2e7d5b" stroke="#1b3a2c" stroke-width=".8">
             <path d="M60,344 q-26,-4 -40,14 q22,-6 40,2 Z"/><path d="M60,344 q26,-4 40,14 q-22,-6 -40,2 Z"/>
@@ -665,15 +665,15 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
             <path d="M60,344 q-2,-22 8,-30 q-2,18 -6,32 Z"/>
           </g>
           <circle cx="57" cy="349" r="2.4" fill="#6b4a2b"/><circle cx="63" cy="350" r="2.4" fill="#6b4a2b"/>
-        </g>
-        <g class="palm p2" transform="translate(28,0) scale(.72)">
+        </g></g>
+        <g transform="translate(28,400) scale(.72) translate(0,-400)"><g class="palm p2">
           <path d="M62,400 q-6,-28 4,-52" fill="none" stroke="#6b4a2b" stroke-width="4" stroke-linecap="round"/>
           <g fill="#2e7d5b" stroke="#1b3a2c" stroke-width=".8">
             <path d="M66,348 q-26,-4 -40,14 q22,-6 40,2 Z"/><path d="M66,348 q26,-4 40,14 q-22,-6 -40,2 Z"/>
             <path d="M66,348 q-18,-18 -36,-8 q20,2 36,14 Z"/><path d="M66,348 q18,-18 36,-8 q-20,2 -36,14 Z"/>
           </g>
-        </g>
-        <g class="palm p3" transform="translate(790,0)">
+        </g></g>
+        <g transform="translate(790,0)"><g class="palm p3">
           <path d="M62,400 q6,-30 -4,-58" fill="none" stroke="#6b4a2b" stroke-width="4" stroke-linecap="round"/>
           <g fill="#2e7d5b" stroke="#1b3a2c" stroke-width=".8">
             <path d="M58,342 q-26,-4 -40,14 q22,-6 40,2 Z"/><path d="M58,342 q26,-4 40,14 q-22,-6 -40,2 Z"/>
@@ -681,23 +681,30 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
             <path d="M58,342 q2,-22 -8,-30 q2,18 6,32 Z"/>
           </g>
           <circle cx="55" cy="347" r="2.4" fill="#6b4a2b"/><circle cx="61" cy="348" r="2.4" fill="#6b4a2b"/>
-        </g>
-        <g class="palm" transform="translate(832,0) scale(.68)">
+        </g></g>
+        <g transform="translate(832,400) scale(.68) translate(0,-400)"><g class="palm">
           <path d="M62,400 q-4,-26 6,-50" fill="none" stroke="#6b4a2b" stroke-width="4" stroke-linecap="round"/>
           <g fill="#2e7d5b" stroke="#1b3a2c" stroke-width=".8">
             <path d="M68,350 q-26,-4 -40,14 q22,-6 40,2 Z"/><path d="M68,350 q26,-4 40,14 q-22,-6 -40,2 Z"/>
             <path d="M68,350 q-18,-18 -36,-8 q20,2 36,14 Z"/><path d="M68,350 q18,-18 36,-8 q-20,2 -36,14 Z"/>
           </g>
-        </g>
+        </g></g>
         <!-- THE SURFER. Rides the swell left to right once a minute. The wave
              is drawn with him so the foam travels too. -->
+        <!-- Three groups on purpose: the outer one carries the ride (CSS
+             transform), the middle one is a plain attribute transform that
+             drops him onto the water line, the inner one bobs (CSS transform).
+             A CSS transform replaces an attribute transform on the same
+             element, which is how he ended up riding across the sky. -->
         <g class="surfer">
-          <g class="bob" transform="translate(0,434)">
+          <g transform="translate(0,434)">
+          <g class="bob">
             <path d="M-40,8 q20,-14 40,-6 q14,6 30,2 q-8,10 -30,10 q-24,0 -40,-6 Z" fill="#52AFBC" opacity=".9"/>
             <path d="M-40,8 q20,-14 40,-6 q14,6 30,2" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" opacity=".85"/>
             <path d="M-12,0 L24,-4" stroke="#DBE120" stroke-width="3.6" stroke-linecap="round"/>
             <path d="M4,-3 L2,-12 M2,-12 L-4,-18 M2,-12 L9,-16 M2,-12 L0,-7 L-4,-3 M2,-12 L6,-6 L10,-3" stroke="#2f3d52" stroke-width="2.2" stroke-linecap="round" fill="none"/>
             <circle cx="3" cy="-21" r="3" fill="#f0c9a4"/>
+          </g>
           </g>
         </g>
 
@@ -794,8 +801,7 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
       </svg>
       </div>
       <div class="note good">
-        <b>50 of 200.</b> Silver is behind us. Gold is the next marker on the path,
-        0 reviews up the hill.
+        <b>50 of 200.</b> Silver and Gold are behind us. Platinum is the next marker on the path, 50 reviews up the hill.
       </div>
     </div>
     <div class="tube-wrap anim d1">
