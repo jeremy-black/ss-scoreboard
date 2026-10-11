@@ -13,7 +13,7 @@
 <!-- Build identity. version.txt beside this page carries the same value, so
      the page can ask "is there a newer board?" by fetching a few bytes rather
      than re-downloading 345KB. See the refresh block at the foot of the page. -->
-<meta name="board-build" content="1791754420">
+<meta name="board-build" content="1791754598">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Summit + Shore weekly scoreboard. 64 of 200 SolarQuotes reviews towards Legendary, ACT ranking, and live sales pipeline.">
 <meta property="og:type" content="website">
@@ -226,6 +226,9 @@ svg.ns-shield{width:68px;flex:none}
   .climb .done,.climb .spark,.climb .sparkhalo,#hiker{animation:none}
   .climb .spark,.climb .sparkhalo{opacity:0}}
 .mlabel{font-family:var(--mono);font-size:11px;font-weight:700;fill:var(--ink-3);letter-spacing:.1em}
+/* Daytime sky behind some labels now: a faint dark halo keeps them legible
+   on light blue as well as on rock. */
+.climb .mlabel{paint-order:stroke;stroke:rgba(0,0,0,.4);stroke-width:2.2px}
 .mlabel.hit{fill:var(--green)}
 /* A milestone we have already passed lights up; one still ahead sits back.
    The dot is the truth, pinned to the exact point on the trail. The badge just
@@ -589,7 +592,7 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
       <div class="s">Weekly scoreboard</div>
     </div>
     <div class="stamp">
-      Refreshed <b>Mon 12 Oct 2026, 8:33am</b><br>
+      Refreshed <b>Mon 12 Oct 2026, 8:36am</b><br>
       SolarQuotes live pages &middot; GoHighLevel read-only<br>
       Latest review 2026-10-09 &middot; rolling 7-day CRM window<br>
       <button class="refresh" id="refresh" type="button">
@@ -616,13 +619,22 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
       <div class="mtn">
       <svg viewBox="0 -46 900 506" role="img" aria-label="Summit + Shore climbing towards the Legendary summit, 64 of 200 reviews">
         <defs>
+          <!-- Daytime, Jeremy 2026-10-11: blue sky and a sun instead of the
+               night-time black. Sky is OPAQUE and starts at the viewBox top
+               (y=-46), or the summit badge floats on a black strip. -->
           <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#52AFBC" stop-opacity=".13"/>
-            <stop offset="70%" stop-color="#52AFBC" stop-opacity="0"/>
+            <stop offset="0%" stop-color="#4FAECB"/>
+            <stop offset="60%" stop-color="#A6D8E4"/>
+            <stop offset="100%" stop-color="#D6EEF4"/>
           </linearGradient>
+          <radialGradient id="sunglow">
+            <stop offset="0%" stop-color="#FFF6CC" stop-opacity=".95"/>
+            <stop offset="55%" stop-color="#FFE98A" stop-opacity=".35"/>
+            <stop offset="100%" stop-color="#FFE98A" stop-opacity="0"/>
+          </radialGradient>
           <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#52AFBC" stop-opacity=".5"/>
-            <stop offset="100%" stop-color="#52AFBC" stop-opacity=".1"/>
+            <stop offset="0%" stop-color="#52AFBC"/>
+            <stop offset="100%" stop-color="#3D93A1"/>
           </linearGradient>
           <linearGradient id="rockL" x1="0" y1="0" x2="1" y2="0">
             <stop offset="0%" stop-color="#585858"/>
@@ -633,21 +645,27 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
             <stop offset="100%" stop-color="#0e0e0e"/>
           </linearGradient>
           <linearGradient id="rockBack" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#333333"/><stop offset="100%" stop-color="#141414"/>
+            <!-- hazier than the front faces: a distant ridge in daylight -->
+            <stop offset="0%" stop-color="#7C9EAC"/><stop offset="100%" stop-color="#55737F"/>
           </linearGradient>
           <linearGradient id="snow" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#bcc9cc"/>
           </linearGradient>
         </defs>
 
-        <rect x="0" y="0" width="900" height="410" fill="url(#sky)"/>
+        <rect x="0" y="-46" width="900" height="456" fill="url(#sky)"/>
+
+        <!-- the sun, high in the east with a soft glare -->
+        <circle cx="806" cy="8" r="66" fill="url(#sunglow)"/>
+        <circle cx="806" cy="8" r="21" fill="#FFF3B0"/>
+        <circle cx="806" cy="8" r="21" fill="none" stroke="#FFFFFF" stroke-opacity=".6" stroke-width="1.5"/>
 
         <!-- weather: a few drifting clouds and a pair of birds -->
-        <g fill="#ffffff" opacity=".07">
+        <g fill="#ffffff" opacity=".88">
           <ellipse cx="150" cy="72" rx="54" ry="14"/><ellipse cx="188" cy="64" rx="34" ry="12"/>
           <ellipse cx="742" cy="122" rx="46" ry="12"/><ellipse cx="712" cy="115" rx="28" ry="10"/>
         </g>
-        <g fill="none" stroke="#99aaaa" stroke-width="1.6" opacity=".45" stroke-linecap="round">
+        <g fill="none" stroke="#3E5A64" stroke-width="1.6" opacity=".7" stroke-linecap="round">
           <path d="M636,80 q9,-7 18,0 M654,80 q9,-7 18,0"/>
           <path d="M690,58 q7,-5 14,0 M704,58 q7,-5 14,0"/>
         </g>
@@ -699,7 +717,7 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
         <path d="M0,398 Q120,392 250,396 T540,395 T900,399 L900,404 L0,406 Z" fill="#e6d7a8" opacity=".55"/>
         <path d="M0,412 Q150,405 320,411 T650,409 T900,414 L900,460 L0,460 Z" fill="url(#sea)"/>
         <path d="M0,412 Q150,405 320,411 T650,409 T900,414" fill="none" stroke="#ffffff" stroke-opacity=".35" stroke-width="1.4"/>
-        <g class="swell" fill="none" stroke="#52AFBC" stroke-width="1.7" stroke-linecap="round">
+        <g class="swell" fill="none" stroke="#ffffff" stroke-width="1.7" stroke-linecap="round">
           <path d="M44,430 q17,-8 34,0" stroke-opacity=".55"/>
           <path d="M138,424 q17,-8 34,0" stroke-opacity=".35"/>
           <path d="M244,438 q17,-8 34,0" stroke-opacity=".5"/>
