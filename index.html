@@ -13,7 +13,7 @@
 <!-- Build identity. version.txt beside this page carries the same value, so
      the page can ask "is there a newer board?" by fetching a few bytes rather
      than re-downloading 345KB. See the refresh block at the foot of the page. -->
-<meta name="board-build" content="1791845727">
+<meta name="board-build" content="1791846371">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Summit + Shore weekly scoreboard. 65 of 200 SolarQuotes reviews towards Legendary, ACT ranking, and live sales pipeline.">
 <meta property="og:type" content="website">
@@ -48,8 +48,10 @@ h1,h2,h3{font-family:var(--display);font-weight:600;text-wrap:balance;margin:0}
 h1{font-size:clamp(30px,4.6vw,46px);letter-spacing:-.02em;line-height:1.05}
 h2{font-size:20px;letter-spacing:-.01em}
 h3{font-size:15px;font-weight:600}
+/* Bold white since 13 Oct 2026 - Jeremy: the grey card titles were too easy
+   to skim past on the dark ground. */
 .eyebrow{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.16em;
-  text-transform:uppercase;color:var(--ink-3)}
+  text-transform:uppercase;color:#ffffff}
 
 /* --------------------------------------------------------------- entrance */
 /* Cards lift in on load, staggered down the page. Anything that animates is
@@ -147,8 +149,8 @@ svg.ns-shield{width:68px;flex:none}
 .tick .n{font-family:var(--mono);font-size:10px;color:var(--ink-3);display:block;margin-top:2px}
 .tick.zero{width:auto;transform:none;left:0;text-align:left}
 
-.tile .label{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--ink-3);display:block;margin-bottom:10px}
+.tile .label{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:#ffffff;display:block;margin-bottom:10px}
 .tile .v{font-family:var(--mono);font-weight:700;font-size:34px;line-height:1;
   font-variant-numeric:tabular-nums;letter-spacing:-.02em}
 .tile .sub{font-size:12.5px;color:var(--ink-2);margin-top:8px;line-height:1.45}
@@ -592,7 +594,7 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
       <div class="s">Weekly scoreboard</div>
     </div>
     <div class="stamp">
-      Refreshed <b>Tue 13 Oct 2026, 9:55am</b><br>
+      Refreshed <b>Tue 13 Oct 2026, 10:06am</b><br>
       SolarQuotes live pages &middot; GoHighLevel read-only<br>
       Latest review 2026-10-12 &middot; rolling 7-day CRM window<br>
       <button class="refresh" id="refresh" type="button">
@@ -774,6 +776,69 @@ tr.me td{color:var(--green)} tr.me td:first-child{font-weight:600}
           </g>
           <circle cx="40" cy="381" r="2.2" fill="#DBE120"/>
           <rect x="39" y="381" width="2" height="4" fill="#DBE120" opacity=".7"/>
+
+          <!-- party lights along the roofline, flashing out of phase -->
+          <g>
+            <circle cx="3"  cy="372.5" r="1.8"><animate attributeName="fill" values="#DBE120;#52AFBC;#F47A59;#DBE120" dur="1.6s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;.25;1" dur=".8s" repeatCount="indefinite"/></circle>
+            <circle cx="13" cy="367.5" r="1.8"><animate attributeName="fill" values="#F47A59;#DBE120;#52AFBC;#F47A59" dur="1.6s" repeatCount="indefinite"/><animate attributeName="opacity" values=".25;1;.25" dur=".8s" repeatCount="indefinite"/></circle>
+            <circle cx="27" cy="362.2" r="1.8"><animate attributeName="fill" values="#52AFBC;#F47A59;#DBE120;#52AFBC" dur="1.6s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;.25;1" dur="1.1s" repeatCount="indefinite"/></circle>
+            <circle cx="41" cy="367.5" r="1.8"><animate attributeName="fill" values="#DBE120;#F47A59;#52AFBC;#DBE120" dur="1.6s" repeatCount="indefinite"/><animate attributeName="opacity" values=".25;1;.25" dur=".9s" repeatCount="indefinite"/></circle>
+            <circle cx="51" cy="372.5" r="1.8"><animate attributeName="fill" values="#F47A59;#52AFBC;#DBE120;#F47A59" dur="1.6s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;.3;1" dur=".7s" repeatCount="indefinite"/></circle>
+          </g>
+
+          <!-- speakers either side, arcs pulsing like they are working hard -->
+          <g>
+            <rect x="-19" y="381" width="12" height="19" rx="1.2" fill="#0d0f11" stroke="#2a2f35" stroke-width=".8"/>
+            <circle cx="-13" cy="394" r="3.4" fill="#16181b" stroke="#3a3f45" stroke-width=".8"/>
+            <circle cx="-13" cy="386.4" r="1.7" fill="#16181b" stroke="#3a3f45" stroke-width=".7"/>
+            <rect x="61" y="381" width="12" height="19" rx="1.2" fill="#0d0f11" stroke="#2a2f35" stroke-width=".8"/>
+            <circle cx="67" cy="394" r="3.4" fill="#16181b" stroke="#3a3f45" stroke-width=".8"/>
+            <circle cx="67" cy="386.4" r="1.7" fill="#16181b" stroke="#3a3f45" stroke-width=".7"/>
+            <g fill="none" stroke="#BAD9DF" stroke-width="1" stroke-linecap="round">
+              <path d="M-22,386 q-3.5,4.5 0,9"><animate attributeName="opacity" values=".9;.1;.9" dur="1s" repeatCount="indefinite"/></path>
+              <path d="M-25.5,384 q-5,6.5 0,13"><animate attributeName="opacity" values=".1;.8;.1" dur="1s" repeatCount="indefinite"/></path>
+              <path d="M76,386 q3.5,4.5 0,9"><animate attributeName="opacity" values=".9;.1;.9" dur="1.15s" repeatCount="indefinite"/></path>
+              <path d="M79.5,384 q5,6.5 0,13"><animate attributeName="opacity" values=".1;.8;.1" dur="1.15s" repeatCount="indefinite"/></path>
+            </g>
+          </g>
+
+          <!-- tiny people. Two dancing, one holding up the bar. -->
+          <g fill="#17120c" stroke="#17120c" stroke-width="1.1" stroke-linecap="round">
+            <!-- dancers wear Summit Green so they read against the dark
+                 treeline; the one at the bar stays a silhouette on the timber -->
+            <g fill="#DBE120" stroke="#DBE120" transform="translate(-31,0)">
+              <animateTransform attributeName="transform" type="rotate" values="-5 0 400;5 0 400;-5 0 400" dur=".9s" repeatCount="indefinite" additive="sum"/>
+              <circle cx="0" cy="386.5" r="2" stroke="none"/>
+              <path d="M0,388.5 L0,396" fill="none"/>
+              <path d="M0,390.5 L-3.6,386.4 M0,390.5 L3.6,387" fill="none"/>
+              <path d="M0,396 L-2.6,402 M0,396 L2.6,402" fill="none"/>
+            </g>
+            <g fill="#DBE120" stroke="#DBE120" transform="translate(84,0)">
+              <animateTransform attributeName="transform" type="rotate" values="6 0 400;-6 0 400;6 0 400" dur="1.15s" repeatCount="indefinite" additive="sum"/>
+              <circle cx="0" cy="386.5" r="2" stroke="none"/>
+              <path d="M0,388.5 L0,396" fill="none"/>
+              <path d="M0,390.5 L-3.6,386.8 M0,390.5 L3.4,386.2" fill="none"/>
+              <path d="M0,396 L-2.4,402 M0,396 L2.8,402" fill="none"/>
+            </g>
+            <g transform="translate(34,0)">
+              <circle cx="0" cy="388" r="2" stroke="none"/>
+              <path d="M0,390 L0,397" fill="none"/>
+              <path d="M0,392 L4.2,386.5 M0,392.5 L-3,395.5" fill="none"/>
+              <path d="M0,397 L-2.2,403 M0,397 L2.2,403" fill="none"/>
+            </g>
+          </g>
+
+          <!-- mini pot plants out the front -->
+          <g>
+            <path d="M0,399 h6 l-1,5.6 h-4 Z" fill="#a85536"/>
+            <g fill="none" stroke="#2e7d5b" stroke-width="1.2" stroke-linecap="round">
+              <path d="M3,399 q-2.6,-3.4 -4.6,-4 M3,399 q.2,-4 1.2,-5.4 M3,399 q2.8,-2.8 4.6,-3.2"/>
+            </g>
+            <path d="M48,399 h6 l-1,5.6 h-4 Z" fill="#a85536"/>
+            <g fill="none" stroke="#2e7d5b" stroke-width="1.2" stroke-linecap="round">
+              <path d="M51,399 q-2.6,-3.4 -4.6,-4 M51,399 q.2,-4 1.2,-5.4 M51,399 q2.8,-2.8 4.6,-3.2"/>
+            </g>
+          </g>
         </g>
         <g transform="translate(832,400) scale(.68) translate(0,-400)"><g class="palm">
           <path d="M62,400 q-4,-26 6,-50" fill="none" stroke="#6b4a2b" stroke-width="4" stroke-linecap="round"/>
