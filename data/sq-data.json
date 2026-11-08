@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-08T08:58:22Z",
+  "generated": "2026-11-08T23:42:47Z",
   "state": "ACT",
   "us": "summit-and-shore-energy",
   "us_stats": {"count":79,"five":75,"four":4,"three":0,"two":0,"one":0,"avg":"4.97"},
@@ -38,8 +38,8 @@
     {"slug":"ahe-group-pty-ltd","name":"AHE Group Pty Ltd","allCount":283,"allAvg":4.80,"n28":11,"p28":22,"n91":25,"p91":50,"n182":42,"p182":83,"n365":68,"p365":133,"fourStar182":1,"newest":"2026-11-05","oldest":"2025-07-03","sampled":100,"tier":"Platinum","capped":0,"avg182":4.99,"complete":0},
     {"slug":"class-a-energy-solutions","name":"Class A Energy Solutions","allCount":225,"allAvg":4.70,"n28":0,"p28":0,"n91":22,"p91":39,"n182":25,"p182":45,"n365":40,"p365":65,"fourStar182":1,"newest":"2026-10-09","oldest":"2024-07-29","sampled":50,"tier":"Gold","capped":0,"avg182":4.89,"complete":0},
     {"slug":"jet-solar-pty-ltd","name":"Jet Solar Pty Ltd","allCount":657,"allAvg":5.00,"n28":11,"p28":22,"n91":26,"p91":51,"n182":53,"p182":104,"n365":111,"p365":218,"fourStar182":2,"newest":"2026-11-04","oldest":"2025-07-22","sampled":150,"tier":"Legendary","capped":0,"avg182":4.99,"complete":0},
-    {"slug":"brightworks-solar-pty-ltd","name":"Brightworks Solar Pty Ltd","allCount":399,"allAvg":5.00,"n28":16,"p28":28,"n91":51,"p91":92,"n182":122,"p182":221,"n365":222,"p365":407,"fourStar182":23,"newest":"2026-11-05","oldest":"2025-09-27","sampled":250,"tier":"Legendary","capped":0,"avg182":4.94,"complete":0},
-    {"slug":"positive-energy-solutions-pty-ltd","name":"Positive Energy Solutions Pty Ltd","allCount":513,"allAvg":4.90,"n28":22,"p28":42,"n91":59,"p91":109,"n182":125,"p182":229,"n365":188,"p365":332,"fourStar182":18,"newest":"2026-11-05","oldest":"2025-10-12","sampled":200,"tier":"Legendary","capped":0,"avg182":4.93,"complete":0},
+    {"slug":"brightworks-solar-pty-ltd","name":"Brightworks Solar Pty Ltd","allCount":399,"allAvg":5.00,"n28":17,"p28":30,"n91":52,"p91":94,"n182":123,"p182":223,"n365":223,"p365":409,"fourStar182":23,"newest":"2026-11-07","oldest":"2025-09-28","sampled":250,"tier":"Legendary","capped":0,"avg182":4.95,"complete":0},
+    {"slug":"positive-energy-solutions-pty-ltd","name":"Positive Energy Solutions Pty Ltd","allCount":513,"allAvg":4.90,"n28":23,"p28":44,"n91":60,"p91":111,"n182":126,"p182":231,"n365":189,"p365":334,"fourStar182":18,"newest":"2026-11-08","oldest":"2025-10-17","sampled":200,"tier":"Legendary","capped":0,"avg182":4.93,"complete":0},
     {"slug":"dsw-energy","name":"DSW Energy","allCount":346,"allAvg":5.00,"n28":12,"p28":21,"n91":52,"p91":95,"n182":91,"p182":170,"n365":188,"p365":353,"fourStar182":12,"newest":"2026-11-05","oldest":"2025-08-28","sampled":200,"tier":"Legendary","capped":0,"avg182":4.95,"complete":0},
     {"slug":"electrifying-australia","name":"Electrifying Australia","allCount":213,"allAvg":4.90,"n28":11,"p28":21,"n91":36,"p91":60,"n182":99,"p182":165,"n365":149,"p365":253,"fourStar182":26,"newest":"2026-11-06","oldest":"2025-11-13","sampled":149,"tier":"Legendary","capped":0,"avg182":4.83,"complete":1},
     {"slug":"green","name":"Green","allCount":504,"allAvg":4.80,"n28":6,"p28":5,"n91":38,"p91":48,"n182":49,"p182":64,"n365":49,"p365":64,"fourStar182":16,"newest":"2026-11-06","oldest":"2026-07-22","sampled":49,"tier":"Platinum","capped":0,"avg182":4.54,"complete":1},
